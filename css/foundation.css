@@ -246,8 +246,8 @@ select {
     margin-left: auto;
     margin-right: auto;
     float: none !important; } }
-/* Styles for screens that are atleast 768px; */
-@media only screen and (min-width: 865px) {
+/* Styles for screens that are atleast 1030px; */
+@media only screen and (min-width: 1030px) {
   .large-1 {
     position: relative;
     width: 8.33333%; }
