@@ -21,6 +21,12 @@ var IdeaView = Backbone.View.extend({
 		});
 		$(this.el).html(ideaHtml);
 		return this;
+	},
+
+	addVote: function(user) {
+		this.votes.push(user)
+		user.voteCount += 1
+		$('.votes').toggleClass('.voted');
 	}
 });
 
@@ -35,13 +41,13 @@ var ShowIdeasView = Backbone.View.extend({
 		}
 	},
 
-	add_new: function(obj){
-		var newIdeaView = new IdeaView(obj);
-		var newIdeaHtml = newIdeaView.render().el;
-		this.ideaViews.push(newIdeaView);
-		$(this.el).append(newIdeaHtml);
-		console.log(newIdeaHtml)
-	},
+	// add_new: function(obj){
+	// 	var newIdeaView = new IdeaView(obj);
+	// 	var newIdeaHtml = newIdeaView.render().el;
+	// 	this.ideaViews.push(newIdeaView);
+	// 	$(this.el).append(newIdeaHtml);
+	// 	console.log(newIdeaHtml)
+	// },
 
 	render: function() {
 
@@ -76,10 +82,13 @@ var ideasView = new ShowIdeasView({
 	el: $('#ideas-feed')
 });
 
+//____________________Add an Idea_______________________________
+
 myDataRef.on('child_added', function(snapshot) {
 	var message = snapshot.val();
 	updatePageInfo(message.ideaTitle, message.ideaDesc);
 });
+
 
 var updatePageInfo = function(title, desc){
 	var obj = {
@@ -92,4 +101,7 @@ var updatePageInfo = function(title, desc){
 	ideasView.add_new(obj);
 };
 ideasView.render();
+
+//_______________________Update user.voteCount___________________
+
 

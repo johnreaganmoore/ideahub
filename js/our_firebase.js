@@ -1,5 +1,7 @@
 var myDataRef = new Firebase("https://idea-hub.firebaseio.com/");
 
+//________________________Add an Idea_______________________
+
 $(document).on("click", ".ideaSubmit", function(e){
 	e.preventDefault();
 
@@ -22,6 +24,20 @@ var displayServerData = function(title, desc){
 	console.log("Title: " + title, "Desc: " + desc);
 };
 
+//__________________________Vote on Idea______________________________
+
+
+// $(document).on('click', '.voteUp', function(e) {
+// 	e.preventDefault();
+// };
+
+// myDataRef.on('child_changed', function(snapshot) {
+//   var userName = snapshot.name(), userData = snapshot.val();
+//   alert('User ' + userName + ' now has a name of ' + userData.name.first + ' ' + userData.name.last);
+// });
+
+
+
 // _________________________Auth Code________________________________________
 
 var auth = new FirebaseSimpleLogin(myDataRef, function(error, user) {
@@ -43,7 +59,6 @@ var auth = new FirebaseSimpleLogin(myDataRef, function(error, user) {
 if (auth.user) {
 	console.log('loggedin');
 
-	
 };
 
 
