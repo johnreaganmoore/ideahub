@@ -30,7 +30,11 @@ var auth = new FirebaseSimpleLogin(myDataRef, function(error, user) {
     console.log(error);
   } else if (user) {
     // user authenticated with Firebase
-    console.log('User ID: ' + user.id + ', Provider: ' + user.provider);
+    for(var key in user){
+    	var value = user[key];
+    	console.log(key, value);
+    }
+
   } else {
     // user is logged out
   }
@@ -42,5 +46,11 @@ $(document).on('click', ".login", function(e) {
 
 	auth.login('github');
 });
+
+$(document).on('click', ".login", function(e) {
+
+	console.log("overwrite!");
+});
+
 
 
