@@ -36,4 +36,11 @@ var auth = new FirebaseSimpleLogin(myDataRef, function(error, user) {
   }
 });
 
+$(document).on('click', ".login", function(e) {
+
+	e.preventDefault();
+
+	auth.login('github');
+});
+
 
