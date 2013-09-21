@@ -31,11 +31,23 @@
   <!-- Feed Entry -->
 
   <!--Start Templating-->
-  <form>
-  <input type="text" class="ideaTitle" placeholder="Project Title"/>
-  <textarea class="ideaDesc" name="ideaDesc" id="" cols="30" rows="10" placeholder="Project description"></textarea>
-  <input type="submit" value="Submit" class="ideaSubmit"/>
-</form>
+    <form>
+     <div class="row">
+      <div class="large-4 columns">
+        <label>Project Title</label>
+        <input class="ideaTitle" type="text" placeholder="Project Title">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="large-8 columns">
+        <label>Project Description</label>
+        <textarea class="ideaDesc" placeholder="Project description"></textarea>
+      </div>
+    </div>
+
+    <button class="ideaSubmit buttonReset">Submit</button>
+    </form>
 
   <div class="templates">
 
