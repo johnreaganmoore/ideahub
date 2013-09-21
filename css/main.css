@@ -26,6 +26,7 @@ h1{
 	padding: 0 ;
 }
 
+
 /*****************NAV*********************/
 
 .navContainer{
@@ -38,7 +39,6 @@ h1{
 
 .mainBody{
 	margin-top: 84px;
-	width: 980px;
 }
 
 .panel h1{
@@ -58,6 +58,14 @@ h1{
 	text-align: right;
 	margin: 0 0 0 auto;
 	width: 100px;
+}
+
+.votes{
+	margin: 10px 0;
+}
+
+.votesBox{
+	text-align: right;
 }
 
 
