@@ -1,3 +1,4 @@
+
 /* main color: #7D7B73 */
 @import url(http://fonts.googleapis.com/css?family=Titillium+Web:400,600,900);
 
@@ -36,18 +37,28 @@ h1{
 }
 
 .mainBody{
-	margin-top: 126px;
+	margin-top: 84px;
 	width: 980px;
 }
 
 .panel h1{
 	color: #7D7B73;
-	float: left;
-	padding-top: 10px;
+	padding: 10px;
+	margin: 0;
+	width: 187px;
+}
+
+.panel a:hover h1, .panel a:hover h4{
+	background-color: #50136E;
 }
 
 .panel h4{
 	color: #3498db;
-	float:right;
-	margin-top: 10px;
+	padding: 20px;
+	text-align: right;
+	margin: 0 0 0 auto;
+	width: 100px;
 }
+
+
+
