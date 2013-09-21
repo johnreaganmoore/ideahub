@@ -35,6 +35,14 @@ var ShowIdeasView = Backbone.View.extend({
 		}
 	},
 
+	add_new: function(obj){
+		var newIdeaView = new IdeaView(obj);
+		var newIdeaHtml = newIdeaView.render().el;
+		this.ideaViews.push(newIdeaView);
+		$(this.el).append(newIdeaHtml);
+		console.log(newIdeaHtml)
+	},
+
 	render: function() {
 
 		$(this.el).empty();
@@ -68,5 +76,20 @@ var ideasView = new ShowIdeasView({
 	el: $('#ideas-feed')
 });
 
+myDataRef.on('child_added', function(snapshot) {
+	var message = snapshot.val();
+	updatePageInfo(message.ideaTitle, message.ideaDesc);
+});
+
+var updatePageInfo = function(title, desc){
+	var obj = {
+		author: "GitHub Login",
+		authorImage: "http://www.placekitten.com/500/500/",
+		title: title,
+		content: desc,
+		votes: 5
+	};
+	ideasView.add_new(obj);
+};
 ideasView.render();
 
