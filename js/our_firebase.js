@@ -21,3 +21,19 @@ myDataRef.on('child_added', function(snapshot) {
 var displayServerData = function(title, desc){
 	console.log("Title: " + title, "Desc: " + desc);
 };
+
+// _________________________Auth Code________________________________________
+
+var auth = new FirebaseSimpleLogin(myDataRef, function(error, user) {
+  if (error) {
+    // an error occurred while attempting login
+    console.log(error);
+  } else if (user) {
+    // user authenticated with Firebase
+    console.log('User ID: ' + user.id + ', Provider: ' + user.provider);
+  } else {
+    // user is logged out
+  }
+});
+
+
