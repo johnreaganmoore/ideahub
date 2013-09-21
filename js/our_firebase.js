@@ -1,9 +1,10 @@
 var myDataRef = new Firebase("https://idea-hub.firebaseio.com/");
-
+var dataB = [];
 
 myDataRef.on('child_added', function(snapshot) {
-	var message = snapshot.val();
-	displayServerData(message.ideaTitle, message.ideaDesc);
+	ideaLoad = snapshot.val();
+	dataB.push(ideaLoad);
+	displayServerData(ideaLoad.ideaTitle, ideaLoad.ideaDesc);
 });
 
 var displayServerData = function(title, desc){
@@ -51,4 +52,6 @@ $(document).on("click", ".ideaSubmit", function(e){
 		userName: auth.user.username,
 		avatar: auth.user.avatar_url
 	});
+
+	window.location.href = "index.html";
 });

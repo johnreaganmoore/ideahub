@@ -48,9 +48,6 @@ var ShowIdeasView = Backbone.View.extend({
 		}
 		return this;
 	},
-
-
-
 });
 
 var ideasView = new ShowIdeasView({
