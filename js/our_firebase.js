@@ -1,16 +1,16 @@
 var myDataRef = new Firebase("https://idea-hub.firebaseio.com/");
 
-$(document).on("click", ".ideaSubmit", function(e){
-	e.preventDefault();
+// $(document).on("click", ".ideaSubmit", function(e){
+// 	e.preventDefault();
 
-	var ideaTitle = $(".ideaTitle").val();
-	var ideaDesc = $(".ideaDesc").val();
+// 	var ideaTitle = $(".ideaTitle").val();
+// 	var ideaDesc = $(".ideaDesc").val();
 
-	myDataRef.push({
-		ideaTitle: ideaTitle, 
-		ideaDesc: ideaDesc
-	});
-});
+// 	myDataRef.push({
+// 		ideaTitle: ideaTitle, 
+// 		ideaDesc: ideaDesc
+// 	});
+// });
 
 
 myDataRef.on('child_added', function(snapshot) {
@@ -25,16 +25,25 @@ var displayServerData = function(title, desc){
 // _________________________Auth Code________________________________________
 
 var auth = new FirebaseSimpleLogin(myDataRef, function(error, user) {
+
   if (error) {
     // an error occurred while attempting login
     console.log(error);
   } else if (user) {
     // user authenticated with Firebase
+
+    this.user = user
+
     console.log('User ID: ' + user.id + ', Provider: ' + user.provider);
   } else {
     // user is logged out
   }
 });
+
+if (auth.user) {
+	console.log('loggedin');
+};
+
 
 $(document).on('click', ".login", function(e) {
 
@@ -42,5 +51,3 @@ $(document).on('click', ".login", function(e) {
 
 	auth.login('github');
 });
-
-
