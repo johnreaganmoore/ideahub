@@ -1,1 +1,53 @@
 /* main color: #7D7B73 */
+@import url(http://fonts.googleapis.com/css?family=Titillium+Web:400,600,900);
+
+body, html{
+	margin:0px;
+	padding:0px;
+	font-family: 'Titillium Web', sans-serif;
+}
+
+h1{
+	font-family: 'Titillium Web', sans-serif;
+	font-weight: 900;
+}
+
+/**********FOUNDATION RESET*****************/
+
+.panel{
+	margin: 0px;
+	background-color: #2f2f2f;
+	border:none;
+}
+
+
+.columns .panel{
+	padding: 0 ;
+}
+
+/*****************NAV*********************/
+
+.navContainer{
+	width:100%;
+	background-color: #2f2f2f;
+	position: fixed;
+	top: 0;
+	z-index: 100;
+}
+
+.mainBody{
+	margin-top: 126px;
+	width: 980px;
+}
+
+.panel h1{
+	color: #7D7B73;
+	float: left;
+	padding-top: 10px;
+}
+
+.panel h4{
+	color: #3498db;
+	float:right;
+	margin-top: 10px;
+}

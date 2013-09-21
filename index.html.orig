@@ -2,8 +2,11 @@
 <head>
 	<title>Idea Hub</title>
 	<link rel="stylesheet" type="text/css" href="css/foundation.css">
+<<<<<<< HEAD
 	<link rel="stylesheet" type="text/css" href="css/main.css">	
+=======
   <link rel="stylesheet" type="text/css" href="css/main.css">
+>>>>>>> htmlNavBar
 </head>
 <body>
 	<!-- Header and Nav -->
