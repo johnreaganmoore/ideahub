@@ -75,6 +75,7 @@ var IdeaView = Backbone.View.extend({
 		e.preventDefault();
 		if(this.voted === "+"){ //Triggers single votes!
 			this.voted = "voted!";
+			this.votes ++;
 			var self = this;
 			fireBIdeas.child(self.ideaId.toString()).once("value", function(snapshot){
 				var ideaOb = snapshot.val();
@@ -99,12 +100,14 @@ var IdeaView = Backbone.View.extend({
 
 			var self = this;
 			fireBIdeas.child(self.ideaId.toString()).once("value", function(snapshot) {
-				var ideaOb = snapshot.exportVal();
-				
-				ideaOb.priority --;
-				ideaOb.interest.auth.user.id = auth.user;
+				var ideaOb = snapshot.val();
+				var priority = snapshot.getPriority();
+
+				ideaOb.interest.push(auth.user);
+				priority --;
 
 				fireBIdeas.child(self.ideaId.toString()).set(ideaOb);
+				fireBIdeas.child(self.ideaId.toString()).setPriority(priority)
 			});
 		}
 
@@ -126,8 +129,8 @@ var ShowIdeasView = Backbone.View.extend({
 			obj.voted = "voted";
 		}
 
-		if(auth.user && obj.interest.indexOf(auth.user > -1)){
-			obj.interested = "All in!";
+		if(auth.user && obj.interest.indexOf(auth.user) > -1){
+			obj.interest = "All in!";
 		}
 
 		var newIdeaHtml = newIdeaView.render().el;
@@ -162,11 +165,13 @@ var updatePageInfo = function(title, desc, username, avatar, votes, voted, ideaI
 	if(auth.user && votes.indexOf(auth.user.id) > -1){
 		voted = "voted!";
 	}
-
-	if(auth.user && interest.indexOf(auth.user) > -1){
-		interested = "All in!";
-		console.log("asdf");
+	console.log(interest);
+	for(var i = 0; i < interest.length; i++){
+		if(auth.user && interest[i].id === auth.user.id){
+			interested = "All in!";
+		}
 	}
+
 
 	var obj = {
 		author: username,
