@@ -30,9 +30,8 @@ var auth = new FirebaseSimpleLogin(myDataRef, function(error, user) {
 
 
 $(document).on("click", ".ideaSubmit", function(e){
-	
 	var ideaTitle = $(".ideaTitle").val();
-	var ideaDesc = $(".ideaDesc").val();
+	var ideaDesc = tinymce.get("ideaDesc").getContent();
 
 	fireBIdeas.child(ideaCounter.toString()).set({
 		ideaTitle: ideaTitle, 
@@ -40,12 +39,10 @@ $(document).on("click", ".ideaSubmit", function(e){
 		userId: auth.user.id,
 		userName: auth.user.username,
 		avatar: auth.user.avatar_url,
-		votes: [],
-		ideaId: ideaCounter,
 		votes: [auth.user.id],
 		voted: "+",
-		ideaId: ideaCounter
-		interest: []
+		ideaId: ideaCounter,
+		interest: [auth.user]
 	});
 	
 	ideaCounter++;
@@ -56,3 +53,12 @@ $(document).on("click", ".logOut", function(e){
 	e.preventDefault();
 	auth.logout();
 });
+
+tinymce.init({
+	selector: "textarea",
+	plugins: [""],
+	menubar: false,
+	statusbar: false,
+	toolbar: "bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent" 
+});
+

@@ -1,8 +1,9 @@
 <html>
 <head>
 	<title>Idea Hub</title>
-	<link rel="stylesheet" type="text/css" href="css/foundation.css">
-	<link rel="stylesheet" type="text/css" href="css/main.css">	
+  <link rel="stylesheet" href="css/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="css/foundation.css">
+  <link rel="stylesheet" type="text/css" href="css/main.css">	
 </head>
 <body>
 	<!-- Header and Nav -->
@@ -10,7 +11,7 @@
     <div class="navContainer">
       <div class="topLevelNav">
         <a href="#"><h1>IdeaHub</h1></a>
-        <a class="login"><h4>Login</h4></a>
+        <a class="login"><h4><i class="icon-github"></i> Login</h4></a>
       </div>
       <div class="subLevelNav">
         <h3>We haz idea!</h3>
@@ -35,7 +36,7 @@
     <script class="idea-template" type="text/template">
 		  <div class="idea-template">
 		    <div class="row">
-		      <div class="large-2 columns small-3"><img src=<%=authorImageUrl %> /><br>
+		      <div class="large-2 columns small-3"><img src=<%= avatar %> /><br>
 		        <p><%=author%></p>
 		      </div>
 		      <div class="large-8 columns small-7">
@@ -91,7 +92,6 @@
 <script src='js/vendor/firebase-simple-login.js' type='text/javascript'></script>
 <script src='js/vendor/firebase.js'></script>
 
-<script src="js/our_firebase.js" type="text/javascript"></script>
 
 <script src="js/script.js" type="text/javascript"></script>
 
