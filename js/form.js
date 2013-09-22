@@ -33,23 +33,33 @@ $(document).on("click", ".ideaSubmit", function(e){
 	
 	var ideaTitle = $(".ideaTitle").val();
 	var ideaDesc = $(".ideaDesc").val();
+	$("#textResult").html(ideaDesc);
 
-	fireBIdeas.child(ideaCounter.toString()).set({
-		ideaTitle: ideaTitle, 
-		ideaDesc: ideaDesc,
-		userId: auth.user.id,
-		userName: auth.user.username,
-		avatar: auth.user.avatar_url,
-		votes: [auth.user.id],
-		voted: "+",
-		ideaId: ideaCounter
-	});
+	// fireBIdeas.child(ideaCounter.toString()).set({
+	// 	ideaTitle: ideaTitle, 
+	// 	ideaDesc: ideaDesc,
+	// 	userId: auth.user.id,
+	// 	userName: auth.user.username,
+	// 	avatar: auth.user.avatar_url,
+	// 	votes: [auth.user.id],
+	// 	voted: "+",
+	// 	ideaId: ideaCounter
+	// });
 	
-	ideaCounter++;
-	fireBIdeaCounter.set(ideaCounter);
+	// ideaCounter++;
+	// fireBIdeaCounter.set(ideaCounter);
 });
 
 $(document).on("click", ".logOut", function(e){
 	e.preventDefault();
 	auth.logout();
 });
+
+tinymce.init({
+	selector: "textarea",
+	plugins: [""],
+	menubar: false,
+	statusbar: false,
+	toolbar: "bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent" 
+});
+
