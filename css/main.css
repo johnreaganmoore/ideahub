@@ -24,6 +24,10 @@ h1{
 	background-color: #3498db;
 }
 
+.row h3{
+	margin: 0px 0px 5px;
+}
+
 
 /*****************NAV*********************/
 .navBar{
@@ -141,5 +145,17 @@ h1{
 
 .ideaSubmit{
 	margin-top: 10px;
+}
+
+/********************* display desc ************************/
+
+.displayDesc{
+	max-height: 62px;
+	display:  inline-block;
+	overflow: hidden;
+}
+
+.displayDesc p{
+	display: inline-block;
 }
 
