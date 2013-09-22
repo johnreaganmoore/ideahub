@@ -192,9 +192,7 @@ $(document).on('click', ".logOut", function(e) {
 
 $(document).on("click", ".showDesc", function(e){
 	e.preventDefault();
-	showDesc = $(".displayDesc");
-
-	$(this).nextAll(showDesc).toggleClass("fullDesc");
+	$(this).parent().parent().prev().toggleClass("fullDesc");
 });
 
 //_________________________Sharing_____________________________//
