@@ -46,7 +46,7 @@ var IdeaView = Backbone.View.extend({
 			authorImageUrl: this.authorImage,
 			ideaTitle: this.title,
 			ideaDesc: this.content,
-			votes: this.votes,
+			votes: this.votes.length,
 			ideaId: this.ideaId
 		});
 		$(this.el).html(ideaHtml);
@@ -59,10 +59,9 @@ var IdeaView = Backbone.View.extend({
 	},
 
 	updateVote: function() {
-		this.votes ++;
 		fireBIdeas.child(this.ideaId).once("value", function(snapshot){
 			var ideaOb = snapshot.val();
-			ideaOb.votes = this.votes;
+			ideaOb.votes.push(auth.user.id);
 
 			fireBIdeas.child(this.ideaId).set(ideaOb);
 		});
