@@ -59,7 +59,6 @@ var IdeaView = Backbone.View.extend({
 			voted: this.voted,
 			ideaId: this.ideaId,
 			interest: this.interest,
-			voted: this.voted,
 			interested: this.interested
 		});
 		$(this.el).html(ideaHtml);
@@ -90,13 +89,19 @@ var IdeaView = Backbone.View.extend({
 
 	updateInterest: function(e) {
 		e.preventDefault();
-		var self = this;
-		fireBIdeas.child(self.ideaId.toString()).once("value", function(snapshot) {
-			var ideaOb = snapshot.val();
-			ideaOb.interest.push(auth.user);
 
-			fireBIdeas.child(self.ideaId.toString()).set(ideaOb);
-		});
+		if(this.interested === "I'm interested"){
+			this.interested = "All in!";
+
+			var self = this;
+			fireBIdeas.child(self.ideaId.toString()).once("value", function(snapshot) {
+				var ideaOb = snapshot.val();
+				ideaOb.interest.push(auth.user);
+
+				fireBIdeas.child(self.ideaId.toString()).set(ideaOb);
+			});
+		}
+
 		ideasView.render();
 	}
 
@@ -141,13 +146,17 @@ fireBIdeas.on('child_added', function(snapshot) {
 	var fireBaseObj = snapshot.val();
 
 	if(typeof fireBaseObj === "object"){
-		updatePageInfo(fireBaseObj.ideaTitle, fireBaseObj.ideaDesc, fireBaseObj.userName, fireBaseObj.avatar, fireBaseObj.votes, fireBaseObj.voted, fireBaseObj.ideaId, fireBaseObj.interest);
+		updatePageInfo(fireBaseObj.ideaTitle, fireBaseObj.ideaDesc, fireBaseObj.userName, fireBaseObj.avatar, fireBaseObj.votes, fireBaseObj.voted, fireBaseObj.ideaId, fireBaseObj.interest, fireBaseObj.interested);
 	}
 });
 
-var updatePageInfo = function(title, desc, username, avatar, votes, voted, ideaId, interest){
+var updatePageInfo = function(title, desc, username, avatar, votes, voted, ideaId, interest, interested){
 	if(auth.user && votes.indexOf(auth.user.id) > -1){
 		voted = "voted!";
+	}
+
+	if(auth.user && votes.indexOf(auth.user.id) > -1){
+		interested = "All in!";
 	}
 
 	var obj = {
@@ -158,7 +167,8 @@ var updatePageInfo = function(title, desc, username, avatar, votes, voted, ideaI
 		votes: votes,
 		voted: voted,
 		ideaId: ideaId,
-		interest: interest
+		interest: interest,
+		interested: interested
 	};
 	ideasView.add_new(obj);
 };

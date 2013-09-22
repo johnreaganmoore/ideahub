@@ -42,7 +42,8 @@ $(document).on("click", ".ideaSubmit", function(e){
 		votes: [auth.user.id],
 		voted: "+",
 		ideaId: ideaCounter,
-		interest: [auth.user]
+		interest: [auth.user],
+		interested: "I'm interested"
 	});
 	
 	ideaCounter++;
