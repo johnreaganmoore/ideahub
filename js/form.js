@@ -30,7 +30,6 @@ var auth = new FirebaseSimpleLogin(myDataRef, function(error, user) {
 
 
 $(document).on("click", ".ideaSubmit", function(e){
-	e.preventDefault();
 	
 	var ideaTitle = $(".ideaTitle").val();
 	var ideaDesc = $(".ideaDesc").val();
