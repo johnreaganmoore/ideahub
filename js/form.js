@@ -21,11 +21,9 @@ var auth = new FirebaseSimpleLogin(myDataRef, function(error, user) {
 
 		this.user = user
 	} else {
-	// user is logged out
+		window.location.assign("index.html");
 	}
 });
-
-auth.login("github");
 
 
 //_____________________________Add trigger to submit button_________________///
@@ -43,11 +41,16 @@ $(document).on("click", ".ideaSubmit", function(e){
 		userId: auth.user.id,
 		userName: auth.user.username,
 		avatar: auth.user.avatar_url,
-		votes: [0],
+		votes: [auth.user.id],
 		voted: "+",
 		ideaId: ideaCounter
 	});
 	
 	ideaCounter++;
 	fireBIdeaCounter.set(ideaCounter);
+});
+
+$(document).on("click", ".logOut", function(e){
+	e.preventDefault();
+	auth.logout();
 });

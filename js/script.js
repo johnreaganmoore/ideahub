@@ -19,12 +19,18 @@ var auth = new FirebaseSimpleLogin(myDataRef, function(error, user) {
 		console.log(error);
 	} else if (user) {
 	// user authenticated with Firebase
+		if(window.location.pathname === "/index.html"){
+			window.location.assign("/user.html");
+		}
 
 		this.user = user
 	} else {
-	// user is logged out
+		if(window.location.pathname != "/index.html"){
+			window.location.assign("/index.html");
+		}
 	}
 });
+
 
 
 //____________________________BackBone___________________________________//
@@ -86,7 +92,7 @@ var ShowIdeasView = Backbone.View.extend({
 
 	add_new: function(obj){
 		var newIdeaView = new IdeaView(obj);
-		if(obj.votes.indexOf(auth.user.id) > -1){
+		if(auth.user && obj.votes.indexOf(auth.user.id) > -1){
 			obj.voted = "voted";
 		}
 		var newIdeaHtml = newIdeaView.render().el;
@@ -118,7 +124,7 @@ fireBIdeas.on('child_added', function(snapshot) {
 });
 
 var updatePageInfo = function(title, desc, username, avatar, votes, voted, ideaId){
-	if(votes.indexOf(auth.user.id) > -1){
+	if(auth.user && votes.indexOf(auth.user.id) > -1){
 		voted = "voted!";
 	}
 
@@ -135,7 +141,7 @@ var updatePageInfo = function(title, desc, username, avatar, votes, voted, ideaI
 };
 
 
-//_______________________Event Listeners___________________________//
+//_______________________Event Listeners______________________//
 
 $(document).on('click', ".login", function(e) {
 	auth.login('github');
