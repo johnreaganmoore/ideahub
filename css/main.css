@@ -71,8 +71,9 @@ h1{
 	width: 100px;
 }
 
-.votes{
+.votesCount{
 	margin: 10px 0;
+	font-size: 1.2em;
 }
 
 .votesBox{
