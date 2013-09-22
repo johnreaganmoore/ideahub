@@ -13,20 +13,24 @@ var ideaTemplate = _.template(ideaTemplateHtml);
 // _________________________Auth Code______________________________________//
 
 var auth = new FirebaseSimpleLogin(myDataRef, function(error, user) {
+	var urlArray = window.location.pathname.split( '/' );
 
 	if (error) {
 	// an error occurred while attempting login
 		console.log(error);
 	} else if (user) {
 	// user authenticated with Firebase
-		if(window.location.pathname === "/index.html"){
-			window.location.assign("/user.html");
+		if(urlArray.indexOf("index.html") > -1){
+			window.location.assign("user.html");
 		}
+		// if(window.location.pathname === "index.html"){
+		// 	window.location.assign("user.html");
+		// }
 
 		this.user = user
 	} else {
-		if(window.location.pathname != "/index.html"){
-			window.location.assign("/index.html");
+		if(urlArray.indexOf("index.html" ) === -1){
+			window.location.assign("index.html");
 		}
 	}
 });
@@ -46,6 +50,7 @@ var IdeaView = Backbone.View.extend({
 		this.voted = options.voted;
 		this.ideaId = options.ideaId;
 		this.interest = options.interest;
+		this.interested = options.interested;
 	},
 
 	render: function() {
@@ -57,7 +62,8 @@ var IdeaView = Backbone.View.extend({
 			votes: this.votes,
 			voted: this.voted,
 			ideaId: this.ideaId,
-			interest: this.interest
+			interest: this.interest,
+			interested: this.interested
 		});
 		$(this.el).html(ideaHtml);
 		return this;
@@ -71,32 +77,37 @@ var IdeaView = Backbone.View.extend({
 	updateVote: function(e) {
 		e.preventDefault();
 		if(this.voted === "+"){ //Triggers single votes!
-			this.votes ++;
 			this.voted = "voted!";
-			var self = this;
-			fireBIdeas.child(self.ideaId.toString()).once("value", function(snapshot){
-				var ideaOb = snapshot.val();
-				ideaOb.votes.push(auth.user.id);
+		};
+		this.votes ++;	
+		var self = this;
+		fireBIdeas.child(self.ideaId.toString()).once("value", function(snapshot){
+			var ideaOb = snapshot.val();
+			ideaOb.votes.push(auth.user.id);
 
-			fireBIdeas.child(self.ideaId.toString()).set(ideaOb);
-			});
-		}
+		fireBIdeas.child(self.ideaId.toString()).set(ideaOb);
+		});
 
 		ideasView.render();
 	},
 
 	updateInterest: function(e) {
 		e.preventDefault();
-		var self = this;
-		fireBIdeas.child(self.ideaId.toString()).once("value", function(snapshot) {
-			var ideaOb = snapshot.val();
-			ideaOb.interest.push(auth.user);
 
-			fireBIdeas.child(self.ideaId.toString()).set(ideaOb);
-		});
+		if(this.interested === "I'm interested"){
+			this.interested = "All in!";
+
+			var self = this;
+			fireBIdeas.child(self.ideaId.toString()).once("value", function(snapshot) {
+				var ideaOb = snapshot.val();
+				ideaOb.interest.auth.user.id = auth.user;
+
+				fireBIdeas.child(self.ideaId.toString()).set(ideaOb);
+			});
+		}
+
 		ideasView.render();
 	}
-
 });
 
 
@@ -112,9 +123,14 @@ var ShowIdeasView = Backbone.View.extend({
 		if(auth.user && obj.votes.indexOf(auth.user.id) > -1){
 			obj.voted = "voted";
 		}
+
+		if(auth.user && obj.interest.indexOf(auth.user > -1)){
+			obj.interested = "All in!";
+		}
+
 		var newIdeaHtml = newIdeaView.render().el;
 		this.ideaViews.push(newIdeaView);
-		$(this.el).append(newIdeaHtml)
+		$(this.el).append(newIdeaHtml);
 	},
 
 	render: function(){
@@ -136,13 +152,17 @@ fireBIdeas.on('child_added', function(snapshot) {
 	var fireBaseObj = snapshot.val();
 
 	if(typeof fireBaseObj === "object"){
-		updatePageInfo(fireBaseObj.ideaTitle, fireBaseObj.ideaDesc, fireBaseObj.userName, fireBaseObj.avatar, fireBaseObj.votes, fireBaseObj.voted, fireBaseObj.ideaId, fireBaseObj.interest);
+		updatePageInfo(fireBaseObj.ideaTitle, fireBaseObj.ideaDesc, fireBaseObj.userName, fireBaseObj.avatar, fireBaseObj.votes, fireBaseObj.voted, fireBaseObj.ideaId, fireBaseObj.interest, fireBaseObj.interested);
 	}
 });
 
-var updatePageInfo = function(title, desc, username, avatar, votes, voted, ideaId, interest){
+var updatePageInfo = function(title, desc, username, avatar, votes, voted, ideaId, interest, interested){
 	if(auth.user && votes.indexOf(auth.user.id) > -1){
 		voted = "voted!";
+	}
+
+	if(auth.user && interest.indexOf(auth.user)){
+		interested = "All in!";
 	}
 
 	var obj = {
@@ -153,7 +173,8 @@ var updatePageInfo = function(title, desc, username, avatar, votes, voted, ideaI
 		votes: votes,
 		voted: voted,
 		ideaId: ideaId,
-		interest: interest
+		interest: interest,
+		interested: interested
 	};
 	ideasView.add_new(obj);
 };
@@ -168,4 +189,15 @@ $(document).on('click', ".login", function(e) {
 $(document).on('click', ".logOut", function(e) {
 	auth.logout();
 });
+
+$(document).on("click", ".showDesc", function(e){
+	e.preventDefault();
+	showDesc = $(".displayDesc");
+
+	$(this).nextAll(showDesc).toggleClass("fullDesc");
+});
+
+//_________________________Sharing_____________________________//
+
+!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');
 

@@ -36,7 +36,7 @@
     <script class="idea-template" type="text/template">
 		  <div class="idea-template">
 		    <div class="row">
-		      <div class="large-2 columns small-3"><img src=<%= avatar %> /><br>
+		      <div class="large-2 columns small-3 avatar"><img src=<%= avatar %> /><br>
 		        <p><%=author%></p>
 		      </div>
 		      <div class="large-8 columns small-7">
@@ -44,14 +44,14 @@
 		        <p><%= ideaDesc %></p>
 		        <ul class="inline-list">
 		          <li><a href="">Reply</a></li>
-		          <li><a href="">Share</a></li>
+		          <li><a href="https://twitter.com/share" class="twitter-share-button" data-text="Great Idea:">Tweet</a></li>
 		        </ul>
 		      </div>
-		      <div class="large-2 columns small-2 votesBox">
-		        <div class="login"><span class="icon"><a class="voteUp" data-idea-id="<%= ideaId %>" href="#">+</a></span></div>
-		        <div class="votesCount">Vote count: <%= votes %></div>
-		        <button class="login buttonReset">I&#39;m interested!</button>
-		      </div>
+		       <div class="large-2 columns small-2 votesBox">
+            <div><a class="voteUp" href="#" data-idea-id="<%= ideaId %>"><%= voted %></a></div>
+            <div data-idea-id="<%= ideaId %>" class="voteCount">Vote count: <%= votes %></div>
+            <button class="interest buttonReset"><%= interested %></button>
+          </div>
 		    </div>
  
 		    <hr />

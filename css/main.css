@@ -6,6 +6,7 @@ body, html{
 	margin:0px;
 	padding:0px;
 	font-family: 'Titillium Web', sans-serif;
+	background: url("witewall_3_@2X.png") repeat top left;
 }
 
 h1{
@@ -37,7 +38,7 @@ h1{
 	transition: all 0.3s linear 0;
 	width:100%;
 	z-index: 100;
-	height: 71px;
+	height: 72px;
 }
 
 .navBar:hover{
@@ -53,7 +54,9 @@ h1{
 
 
 .mainBody{
-	margin-top: 84px;
+	padding: 84px 15px 0px;
+	background-color: rgba(255, 255, 255, .6);
+	box-shadow: 0px 0px 20px #ccc;
 }
 
 .subLevelNav{
@@ -130,6 +133,18 @@ h1{
 	font-size: 2em;
 }
 
+.displayDesc{
+	height: 90px;
+	display: block;
+	margin-bottom: 10px;
+	overflow: hidden;
+}
+
+.fullDesc{
+	display:inline;
+	overflow: visible;
+}
+
 .votesCount{
 	margin: 10px 0;
 	font-size: 1.2em;
@@ -147,15 +162,6 @@ h1{
 	margin-top: 10px;
 }
 
-/********************* display desc ************************/
-
-.displayDesc{
-	max-height: 97px;
-	display:  inline-block;
-	overflow: hidden;
+.avatar{
+	width:100px;
 }
-
-.displayDesc p{
-	display: inline-block;
-}
-
