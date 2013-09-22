@@ -79,9 +79,13 @@ var IdeaView = Backbone.View.extend({
 			var self = this;
 			fireBIdeas.child(self.ideaId.toString()).once("value", function(snapshot){
 				var ideaOb = snapshot.val();
+				var priority = snapshot.getPriority();
+				
 				ideaOb.votes.push(auth.user.id);
+				priority --;
 
-			fireBIdeas.child(self.ideaId.toString()).set(ideaOb);
+				fireBIdeas.child(self.ideaId.toString()).set(ideaOb);
+				fireBIdeas.child(self.ideaId.toString()).setPriority(priority);
 			});
 		}
 
@@ -96,7 +100,9 @@ var IdeaView = Backbone.View.extend({
 
 			var self = this;
 			fireBIdeas.child(self.ideaId.toString()).once("value", function(snapshot) {
-				var ideaOb = snapshot.val();
+				var ideaOb = snapshot.exportVal();
+				
+				ideaOb.priority --;
 				ideaOb.interest.auth.user.id = auth.user;
 
 				fireBIdeas.child(self.ideaId.toString()).set(ideaOb);

@@ -35,7 +35,7 @@ $(document).on("click", ".ideaSubmit", function(e){
 	var interestArry = [];
 	interestArry.push(auth.user);
 
-	fireBIdeas.child(ideaCounter.toString()).set({
+	fireBIdeas.child(ideaCounter.toString()).setWithPriority({
 		ideaTitle: ideaTitle, 
 		ideaDesc: ideaDesc,
 		userId: auth.user.id,
@@ -46,7 +46,7 @@ $(document).on("click", ".ideaSubmit", function(e){
 		ideaId: ideaCounter,
 		interest: interestArry,
 		interested: "I'm interested"
-	});
+	},99999);
 	
 	ideaCounter++;
 	fireBIdeaCounter.set(ideaCounter);
