@@ -38,6 +38,7 @@ var IdeaView = Backbone.View.extend({
 		this.content = options.content;
 		this.votes = options.votes.length;
 		this.ideaId = options.ideaId;
+		this.interest = options.interest;
 	},
 
 	render: function() {
@@ -47,16 +48,16 @@ var IdeaView = Backbone.View.extend({
 			ideaTitle: this.title,
 			ideaDesc: this.content,
 			votes: this.votes,
-			ideaId: this.ideaId
+			ideaId: this.ideaId,
+			interest: this.interest
 		});
 		$(this.el).html(ideaHtml);
 		return this;
 	},
 
 	events: { 
-		"click .voteUp": "updateVote"
-	
-
+		"click .voteUp": "updateVote",
+		"click .interest": "updateInterest"
 	},
 
 	updateVote: function() {
@@ -70,6 +71,17 @@ var IdeaView = Backbone.View.extend({
 		});
 
 		ideasView.render();
+	},
+
+	updateInterest: function() {
+		fireBIdeas.child(this.ideaId.toString()).once("value", function(snapshot) {
+			var ideaOb = snapshot.val();
+			ideaOb.interest.push(auth.user.id);
+
+			fireBIdeas.child(this.ideaId.toString()).set(ideaOb);
+		});
+
+		this.render();
 	}
 
 });

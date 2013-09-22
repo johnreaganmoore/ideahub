@@ -44,7 +44,8 @@ $(document).on("click", ".ideaSubmit", function(e){
 		userName: auth.user.username,
 		avatar: auth.user.avatar_url,
 		votes: [],
-		ideaId: ideaCounter
+		ideaId: ideaCounter,
+		interest: []
 	});
 	
 	ideaCounter++;
