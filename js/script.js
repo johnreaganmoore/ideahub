@@ -155,7 +155,7 @@ var updatePageInfo = function(title, desc, username, avatar, votes, voted, ideaI
 		voted = "voted!";
 	}
 
-	if(auth.user && votes.indexOf(auth.user.id) > -1){
+	if(auth.user && interested.indexOf(auth.user.id) > -1){
 		interested = "All in!";
 	}
 
