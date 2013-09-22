@@ -156,8 +156,9 @@ var updatePageInfo = function(title, desc, username, avatar, votes, voted, ideaI
 	}
 
 	var userId = auth.user.id;
+	console.log(typeof interest);
 
-	if(auth.user && interest.userId){
+	if(auth.user && interest.indexOf(auth.user)){
 		console.log("this is working");
 		interested = "All in!";
 	}
