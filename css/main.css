@@ -13,22 +13,9 @@ h1{
 	font-weight: 900;
 }
 
+
 /**********FOUNDATION RESET*****************/
 
-.panel{
-	margin: 0px;
-	background-color: #2f2f2f;
-	border:none;
-}
-
-
-.columns .panel{
-	padding: 0 ;
-}
-
-.ideaDesc{
-	height: 100px;
-}
 
 .buttonReset{
 	font-weight:normal;
@@ -39,14 +26,19 @@ h1{
 
 
 /*****************NAV*********************/
-
-.navContainer{
-	width:100%;
+.navBar{
 	background-color: #2f2f2f;
 	position: fixed;
-	top: 0;
+	top: 0;	
+	width:100%;
 	z-index: 100;
-	height: 64px;
+}
+
+
+.navContainer{
+	background-color: #2f2f2f;
+	margin: 0 auto;
+	width: 980px;
 }
 
 
@@ -54,24 +46,25 @@ h1{
 	margin-top: 84px;
 }
 
-.panel h1{
+.navContainer h1{
 	color: #7D7B73;
-	padding: 10px;
+	float:left;
+	padding: 5px 20px;
 	margin: 0;
-	width: 187px;
 }
 
-.panel a:hover h1, .panel a h5:hover{
+.navContainer a:hover h1, .navContainer a .icon-cogs:hover{
 	background-color: #50136E;
 }
 
-.panel h5{
+.navContainer .icon-cogs{
 	color: #3498db;
-	padding: 22px;
+	padding: 19px;
 	text-align: right;
 	margin: 0px 0px 0px 120px;
 	display: inline-block;
 	float: right;
+	font-size: 2em;
 }
 
 .votesCount{
