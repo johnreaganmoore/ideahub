@@ -23,9 +23,6 @@ var auth = new FirebaseSimpleLogin(myDataRef, function(error, user) {
 		if(urlArray.indexOf("index.html") > -1){
 			window.location.assign("user.html");
 		}
-		// if(window.location.pathname === "index.html"){
-		// 	window.location.assign("user.html");
-		// }
 
 		this.user = user
 	} else {
@@ -78,15 +75,18 @@ var IdeaView = Backbone.View.extend({
 		e.preventDefault();
 		if(this.voted === "+"){ //Triggers single votes!
 			this.voted = "voted!";
-		};
-		this.votes ++;	
-		var self = this;
-		fireBIdeas.child(self.ideaId.toString()).once("value", function(snapshot){
-			var ideaOb = snapshot.val();
-			ideaOb.votes.push(auth.user.id);
+			var self = this;
+			fireBIdeas.child(self.ideaId.toString()).once("value", function(snapshot){
+				var ideaOb = snapshot.val();
+				var priority = snapshot.getPriority();
+				
+				ideaOb.votes.push(auth.user.id);
+				priority --;
 
-		fireBIdeas.child(self.ideaId.toString()).set(ideaOb);
-		});
+				fireBIdeas.child(self.ideaId.toString()).set(ideaOb);
+				fireBIdeas.child(self.ideaId.toString()).setPriority(priority);
+			});
+		}
 
 		ideasView.render();
 	},
@@ -99,7 +99,9 @@ var IdeaView = Backbone.View.extend({
 
 			var self = this;
 			fireBIdeas.child(self.ideaId.toString()).once("value", function(snapshot) {
-				var ideaOb = snapshot.val();
+				var ideaOb = snapshot.exportVal();
+				
+				ideaOb.priority --;
 				ideaOb.interest.auth.user.id = auth.user;
 
 				fireBIdeas.child(self.ideaId.toString()).set(ideaOb);
