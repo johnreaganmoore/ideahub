@@ -150,7 +150,7 @@ h1{
 /********************* display desc ************************/
 
 .displayDesc{
-	max-height: 62px;
+	max-height: 97px;
 	display:  inline-block;
 	overflow: hidden;
 }
