@@ -19,14 +19,14 @@ var auth = new FirebaseSimpleLogin(myDataRef, function(error, user) {
 		console.log(error);
 	} else if (user) {
 	// user authenticated with Firebase
-		if(window.location.pathname === "/index.html"){
-			window.location.assign("/user.html");
+		if(window.location.pathname === "index.html"){
+			window.location.assign("user.html");
 		}
 
 		this.user = user
 	} else {
-		if(window.location.pathname != "/index.html"){
-			window.location.assign("/index.html");
+		if(window.location.pathname != "index.html"){
+			window.location.assign("index.html");
 		}
 	}
 });
@@ -122,6 +122,8 @@ var ShowIdeasView = Backbone.View.extend({
 		if(auth.user && obj.votes.indexOf(auth.user.id) > -1){
 			obj.voted = "voted";
 		}
+
+		if(auth.user && obj.interest.indexOf())
 		var newIdeaHtml = newIdeaView.render().el;
 		this.ideaViews.push(newIdeaView);
 		$(this.el).append(newIdeaHtml)
@@ -155,7 +157,7 @@ var updatePageInfo = function(title, desc, username, avatar, votes, voted, ideaI
 		voted = "voted!";
 	}
 
-	if(auth.user && interested.indexOf(auth.user.id) > -1){
+	if(auth.user && interest.indexOf(auth.user) > -1){
 		interested = "All in!";
 	}
 
