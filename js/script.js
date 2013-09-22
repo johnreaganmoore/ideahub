@@ -96,7 +96,7 @@ var IdeaView = Backbone.View.extend({
 			var self = this;
 			fireBIdeas.child(self.ideaId.toString()).once("value", function(snapshot) {
 				var ideaOb = snapshot.val();
-				ideaOb.interest.push(auth.user);
+				ideaOb.interest.auth.user.id = auth.user;
 
 				fireBIdeas.child(self.ideaId.toString()).set(ideaOb);
 			});
@@ -155,7 +155,10 @@ var updatePageInfo = function(title, desc, username, avatar, votes, voted, ideaI
 		voted = "voted!";
 	}
 
-	if(auth.user && interested.indexOf(auth.user.id) > -1){
+	var userId = auth.user.id;
+
+	if(auth.user && interest.userId){
+		console.log("this is working");
 		interested = "All in!";
 	}
 
