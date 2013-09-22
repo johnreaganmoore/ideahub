@@ -18,7 +18,6 @@ var auth = new FirebaseSimpleLogin(myDataRef, function(error, user) {
 		console.log(error);
 	} else if (user) {
 	// user authenticated with Firebase
-
 		this.user = user
 	} else {
 		window.location.assign("index.html");
@@ -41,7 +40,8 @@ $(document).on("click", ".ideaSubmit", function(e){
 		avatar: auth.user.avatar_url,
 		votes: [auth.user.id],
 		voted: "+",
-		ideaId: ideaCounter
+		ideaId: ideaCounter,
+		interest: [auth.user]
 	});
 	
 	ideaCounter++;
