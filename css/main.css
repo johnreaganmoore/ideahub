@@ -64,6 +64,23 @@ h1{
 	-webkit-transition: opacity 0.1s ease-out 0.1s;
 }
 
+.topLevelNav a h4{
+	color: #3498db;
+	margin:0;
+}
+
+.topLevelNav .login{
+	padding: 19px;
+	text-align: right;
+	margin: 0px 0px 0px 20px;
+	display: inline-block;
+	float: right;
+}
+
+.topLevelNav .login:hover{
+	background-color: #50136E;
+}
+
 .subLevelNav a{
 	padding: 10px 19px;
 	text-align: right;
@@ -75,6 +92,13 @@ h1{
 .subLevelNav a:hover{
 	background-color: #50136E;
 }
+
+.subLevelNav h3{
+	color: #ddd;
+	padding: 0 20px;
+	font-weight: 400;
+}
+
 .subLevelNav h5{
 	color: #3498db;
 	margin:0;

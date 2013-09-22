@@ -147,3 +147,7 @@ $(document).on('click', ".login", function(e) {
 	auth.login('github');
 });
 
+$(document).on('click', ".logOut", function(e) {
+	auth.logout();
+});
+
