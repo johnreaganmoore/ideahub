@@ -83,8 +83,8 @@ var IdeaView = Backbone.View.extend({
 				ideaOb.votes.push(auth.user.id);
 				priority --;
 
-				fireBIdeas.child(self.ideaId.toString()).set(ideaOb);
 				fireBIdeas.child(self.ideaId.toString()).setPriority(priority);
+				fireBIdeas.child(self.ideaId.toString()).set(ideaOb);
 			});
 		}
 
