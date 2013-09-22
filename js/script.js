@@ -107,6 +107,13 @@ $(document).on('click', ".login", function(e) {
 
 $(document).on("click", ".voteUp", function(e){
 	var ideaId = $(this).data("idea-id");
+
+	fireBIdeas.child(ideaId).once("value", function(snapshot){
+		var ideaOb = snapshot.val();
+		ideaOb.votes ++;
+
+		fireBIdeas.child(ideaId).set(ideaOb);
+	});
 });
 
 

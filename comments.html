@@ -2,7 +2,7 @@
 <head>
 	<title>Idea Hub</title>
 	<link rel="stylesheet" type="text/css" href="css/foundation.css">
-	<link rel="stylesheet" type="text/css" href="css/main.css">	
+	<link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
   <link rel="stylesheet" type="text/css" href="css/main.css">
 </head>
 <body>
@@ -46,14 +46,29 @@
 		        <h3><strong><%= ideaTitle %></strong></h3> 
 		        <p><%= ideaDesc %></p>
 		        <ul class="inline-list">
-		          <li><a href="">Reply</a></li>
+              <li><a href="">More <i class="icon-arrow-down"></i></a></li>
+		          <li><a href="">Comments</a></li>
 		          <li><a href="">Share</a></li>
 		        </ul>
+            <div class="row comment-area">
+              <div class="large-2 columns small-2">
+                <img class="comment-image"src=<%=authorImageUrl %> />
+              </div>
+              <div class="large-10 columns small-10">
+                <h6><strong>Comment Title</strong></h6>
+                <p>Comment text stuff all goes right here.<p>
+                <ul class="inline-list">
+                  <li><a href="">More</a></li>
+                  <li><a href="">Comments</a></li>
+                  <li><a href="">Share</a></li>
+                </ul>
+              </div>
+            </div>
 		      </div>
 		      <div class="large-2 columns small-2 votesBox">
-		        <div class="login"><span class="icon"><a class="voteUp" data-idea-id="<%=ideaId%>" href="#">+</a></span></div>
-		        <div class="votesCount">Vote count: <%= votes %></div>
-		        <button class="login buttonReset">I&#39;m interested!</button>
+            <div class="voteUp"><span class="icon">+</span></div>
+            <div class="votes"><%= votes %></div>
+            <button class="login buttonReset">I&#39;m interested!</button>
 		      </div>
 		    </div>
  
