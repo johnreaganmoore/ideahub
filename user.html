@@ -12,6 +12,7 @@
       <div class="topLevelNav">
         <a href="#"><h1>IdeaHub</h1></a>
         <i class="icon-cogs"></i>
+        <div class="hello"></div>
       </div>
       <div class="subLevelNav">
         <h3>We haz idea!</h3>
@@ -47,13 +48,12 @@
             <div class="displayDesc"><%= ideaDesc %></div>
             <ul class="inline-list">
               <li><a href="" class="showDesc">Show More</a></li>
-              <li><a href="">Reply</a></li>
               <li><a href="https://twitter.com/share" class="twitter-share-button" data-text="Great Idea:">Tweet</a></li>
             </ul>
           </div>
           <div class="large-2 columns small-2 votesBox">
             <div><a class="voteUp" href="#" data-idea-id="<%= ideaId %>"><%= voted %></a></div>
-            <div data-idea-id="<%= ideaId %>" class="voteCount">Vote count: <%= votes %></div>
+            <div data-idea-id="<%= ideaId %>" class="voteCount">votes: <span class="voteNum"><%= votes %></span></div>
             <button class="interest buttonReset"><%= interested %></button>
           </div>
         </div>
