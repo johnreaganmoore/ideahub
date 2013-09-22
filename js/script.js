@@ -55,6 +55,8 @@ var IdeaView = Backbone.View.extend({
 
 	events: { 
 		"click .voteUp": "updateVote"
+		"click .interested": "updateInterest"
+	
 
 	},
 
@@ -67,7 +69,8 @@ var IdeaView = Backbone.View.extend({
 		});
 
 		this.render();
-	}
+	},
+
 });
 
 
