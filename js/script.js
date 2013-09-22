@@ -163,8 +163,9 @@ var updatePageInfo = function(title, desc, username, avatar, votes, voted, ideaI
 		voted = "voted!";
 	}
 
-	if(auth.user && interest.indexOf(auth.user)){
+	if(auth.user && interest.indexOf(auth.user) > -1){
 		interested = "All in!";
+		console.log("asdf");
 	}
 
 	var obj = {
