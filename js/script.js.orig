@@ -64,8 +64,8 @@ var IdeaView = Backbone.View.extend({
 	},
 
 	events: { 
-		"click .voteUp": "updateVote",
-		"click .interest": "updateInterest"
+<<<<<<< HEAD
+		"click .voteUp": "updateVote"
 	},
 
 	updateVote: function(e) {
@@ -82,6 +82,20 @@ var IdeaView = Backbone.View.extend({
 			});
 			ideasView.render();
 		}
+=======
+		"click .voteUp": "updateVote",
+		"click .interest": "updateInterest"
+	},
+
+	updateInterest: function() {
+		fireBIdeas.child(this.ideaId.toString()).once("value", function(snapshot) {
+			var ideaOb = snapshot.val();
+			ideaOb.interest.push(auth.user.id);
+
+			fireBIdeas.child(this.ideaId.toString()).set(ideaOb);
+		});
+
+		ideasView.render();
 	},
 
 	updateInterest: function() {
@@ -93,9 +107,8 @@ var IdeaView = Backbone.View.extend({
 		});
 
 		this.render();
+>>>>>>> interest
 	}
-
-
 
 });
 

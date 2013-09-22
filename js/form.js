@@ -39,12 +39,10 @@ $(document).on("click", ".ideaSubmit", function(e){
 		userId: auth.user.id,
 		userName: auth.user.username,
 		avatar: auth.user.avatar_url,
-		votes: [],
-		ideaId: ideaCounter,
 		votes: [auth.user.id],
 		voted: "+",
-		ideaId: ideaCounter
-		interest: []
+		ideaId: ideaCounter,
+		interest: [auth.user]
 	});
 	
 	ideaCounter++;
