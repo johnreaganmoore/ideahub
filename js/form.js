@@ -19,7 +19,9 @@ var auth = new FirebaseSimpleLogin(myDataRef, function(error, user) {
 	} else if (user) {
 	// user authenticated with Firebase
 
-		this.user = user
+		this.user = user;
+		$(".hello").text("Welcome, " + user.username);
+		
 	} else {
 		window.location.assign("index.html");
 	}

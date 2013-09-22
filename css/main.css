@@ -88,6 +88,13 @@ h1{
 	background-color: #50136E;
 }
 
+.hello{
+	font-size: 1.3em;
+	float: right;
+	color: #ddd;
+	padding-top: 22px;
+}
+
 .subLevelNav a{
 	padding: 10px 19px;
 	text-align: right;
@@ -127,7 +134,7 @@ h1{
 	color: #3498db;
 	padding: 19px;
 	text-align: right;
-	margin: 0px 0px 0px 120px;
+	margin: 0px;
 	display: inline-block;
 	float: right;
 	font-size: 2em;
@@ -145,9 +152,9 @@ h1{
 	overflow: scroll;
 }
 
-.votesCount{
+.voteCount{
 	margin: 10px 0;
-	font-size: 1.2em;
+	font-size: 1.3em;
 }
 
 .votesBox{
@@ -155,7 +162,12 @@ h1{
 }
 
 .voteUp{
-	font-size: 3em;
+	font-size: 2em;
+}
+
+.voteNum{
+	font-size: 1.5em;
+	display: inline-block;
 }
 
 .ideaSubmit{
