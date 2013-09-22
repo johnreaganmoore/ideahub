@@ -128,7 +128,11 @@ h1{
 
 .votesCount{
 	margin: 10px 0;
-	font-size: 1.2em;
+	font-size: 2.5em;
+}
+
+.votesNum{
+	font-size: 5em;
 }
 
 .votesBox{
