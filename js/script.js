@@ -13,21 +13,25 @@ var ideaTemplate = _.template(ideaTemplateHtml);
 // _________________________Auth Code______________________________________//
 
 var auth = new FirebaseSimpleLogin(myDataRef, function(error, user) {
+	var urlArray = window.location.pathname.split( '/' );
 
 	if (error) {
 	// an error occurred while attempting login
 		console.log(error);
 	} else if (user) {
 	// user authenticated with Firebase
+		if(urlArray.indexOf("index.html") > -1){
+			window.location.assign("user.html");
+		}
 		// if(window.location.pathname === "index.html"){
 		// 	window.location.assign("user.html");
 		// }
 
 		this.user = user
 	} else {
-		// if(window.location.pathname != "index.html"){
-		// 	window.location.assign("index.html");
-		// }
+		if(urlArray.indexOf("index.html" ) === -1){
+			window.location.assign("index.html");
+		}
 	}
 });
 
@@ -73,16 +77,16 @@ var IdeaView = Backbone.View.extend({
 	updateVote: function(e) {
 		e.preventDefault();
 		if(this.voted === "+"){ //Triggers single votes!
-			this.votes ++;
 			this.voted = "voted!";
-			var self = this;
-			fireBIdeas.child(self.ideaId.toString()).once("value", function(snapshot){
-				var ideaOb = snapshot.val();
-				ideaOb.votes.push(auth.user.id);
+		};
+		this.votes ++;	
+		var self = this;
+		fireBIdeas.child(self.ideaId.toString()).once("value", function(snapshot){
+			var ideaOb = snapshot.val();
+			ideaOb.votes.push(auth.user.id);
 
-			fireBIdeas.child(self.ideaId.toString()).set(ideaOb);
-			});
-		}
+		fireBIdeas.child(self.ideaId.toString()).set(ideaOb);
+		});
 
 		ideasView.render();
 	},
@@ -96,7 +100,7 @@ var IdeaView = Backbone.View.extend({
 			var self = this;
 			fireBIdeas.child(self.ideaId.toString()).once("value", function(snapshot) {
 				var ideaOb = snapshot.val();
-				ideaOb.interest.push(auth.user);
+				ideaOb.interest.auth.user.id = auth.user;
 
 				fireBIdeas.child(self.ideaId.toString()).set(ideaOb);
 			});
@@ -123,10 +127,13 @@ var ShowIdeasView = Backbone.View.extend({
 			obj.voted = "voted";
 		}
 
-		if(auth.user && obj.interest.indexOf())
+		if(auth.user && obj.interest.indexOf(auth.user > -1)){
+			obj.interested = "All in!";
+		}
+
 		var newIdeaHtml = newIdeaView.render().el;
 		this.ideaViews.push(newIdeaView);
-		$(this.el).append(newIdeaHtml)
+		$(this.el).append(newIdeaHtml);
 	},
 
 	render: function(){
@@ -157,7 +164,7 @@ var updatePageInfo = function(title, desc, username, avatar, votes, voted, ideaI
 		voted = "voted!";
 	}
 
-	if(auth.user && interest.indexOf(auth.user) > -1){
+	if(auth.user && interest.indexOf(auth.user)){
 		interested = "All in!";
 	}
 
