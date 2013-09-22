@@ -30,8 +30,14 @@ h1{
 	background-color: #2f2f2f;
 	position: fixed;
 	top: 0;	
+	transition: all 0.3s linear 0;
 	width:100%;
 	z-index: 100;
+	height: 71px;
+}
+
+.navBar:hover{
+	height: 117px;
 }
 
 
@@ -46,6 +52,34 @@ h1{
 	margin-top: 84px;
 }
 
+.subLevelNav{
+	clear:both;
+	opacity: 0;
+	height: 0;
+}
+
+.navBar:hover .subLevelNav{
+	opacity: 100;
+	transition: all 0.1s linear 3s;
+	-webkit-transition: opacity 0.1s ease-out 0.1s;
+}
+
+.subLevelNav a{
+	padding: 10px 19px;
+	text-align: right;
+	margin: 0px 0px 0px 20px;
+	display: inline-block;
+	float: right;
+}
+
+.subLevelNav a:hover{
+	background-color: #50136E;
+}
+.subLevelNav h5{
+	color: #3498db;
+	margin:0;
+}
+
 .navContainer h1{
 	color: #7D7B73;
 	float:left;
@@ -53,7 +87,7 @@ h1{
 	margin: 0;
 }
 
-.navContainer a:hover h1, .navContainer a .icon-cogs:hover{
+.navContainer a:hover h1{
 	background-color: #50136E;
 }
 
