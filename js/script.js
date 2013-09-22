@@ -37,6 +37,7 @@ var IdeaView = Backbone.View.extend({
 		this.title = options.title;
 		this.content = options.content;
 		this.votes = options.votes.length;
+		this.voted = options.voted;
 		this.ideaId = options.ideaId;
 	},
 
@@ -47,6 +48,7 @@ var IdeaView = Backbone.View.extend({
 			ideaTitle: this.title,
 			ideaDesc: this.content,
 			votes: this.votes,
+			voted: this.voted,
 			ideaId: this.ideaId
 		});
 		$(this.el).html(ideaHtml);
@@ -55,19 +57,22 @@ var IdeaView = Backbone.View.extend({
 
 	events: { 
 		"click .voteUp": "updateVote"
-
 	},
 
-	updateVote: function() {
-		this.votes ++;
-		var self = this;
-		fireBIdeas.child(self.ideaId.toString()).once("value", function(snapshot){
-			var ideaOb = snapshot.val();
-			ideaOb.votes.push(auth.user.id);
+	updateVote: function(e) {
+		e.preventDefault();
+		if(this.voted === "+"){ //Triggers single votes!
+			this.votes ++;
+			this.voted = "voted!";
+			var self = this;
+			fireBIdeas.child(self.ideaId.toString()).once("value", function(snapshot){
+				var ideaOb = snapshot.val();
+				ideaOb.votes.push(auth.user.id);
 
-			fireBIdeas.child(self.ideaId.toString()).set(ideaOb);
-		});
-		ideasView.render();
+				fireBIdeas.child(self.ideaId.toString()).set(ideaOb);
+			});
+			ideasView.render();
+		}
 	}
 });
 
@@ -81,9 +86,12 @@ var ShowIdeasView = Backbone.View.extend({
 
 	add_new: function(obj){
 		var newIdeaView = new IdeaView(obj);
+		if(obj.votes.indexOf(auth.user.id) > -1){
+			obj.voted = "voted";
+		}
 		var newIdeaHtml = newIdeaView.render().el;
 		this.ideaViews.push(newIdeaView);
-		$(this.el).append(newIdeaHtml);
+		$(this.el).append(newIdeaHtml)
 	},
 
 	render: function(){
@@ -105,17 +113,22 @@ fireBIdeas.on('child_added', function(snapshot) {
 	var fireBaseObj = snapshot.val();
 
 	if(typeof fireBaseObj === "object"){
-		updatePageInfo(fireBaseObj.ideaTitle, fireBaseObj.ideaDesc, fireBaseObj.userName, fireBaseObj.avatar, fireBaseObj.votes, fireBaseObj.ideaId);
+		updatePageInfo(fireBaseObj.ideaTitle, fireBaseObj.ideaDesc, fireBaseObj.userName, fireBaseObj.avatar, fireBaseObj.votes, fireBaseObj.voted, fireBaseObj.ideaId);
 	}
 });
 
-var updatePageInfo = function(title, desc, username, avatar, votes, ideaId){
+var updatePageInfo = function(title, desc, username, avatar, votes, voted, ideaId){
+	if(votes.indexOf(auth.user.id) > -1){
+		voted = "voted!";
+	}
+
 	var obj = {
 		author: username,
 		authorImage: avatar,
 		title: title,
 		content: desc,
 		votes: votes,
+		voted: voted,
 		ideaId: ideaId
 	};
 	ideasView.add_new(obj);

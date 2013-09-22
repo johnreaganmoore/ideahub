@@ -43,7 +43,8 @@ $(document).on("click", ".ideaSubmit", function(e){
 		userId: auth.user.id,
 		userName: auth.user.username,
 		avatar: auth.user.avatar_url,
-		votes: [],
+		votes: [0],
+		voted: "+",
 		ideaId: ideaCounter
 	});
 	
