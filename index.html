@@ -3,21 +3,17 @@
 	<title>Idea Hub</title>
 	<link rel="stylesheet" type="text/css" href="css/foundation.css">
 	<link rel="stylesheet" type="text/css" href="css/main.css">	
-  <link rel="stylesheet" type="text/css" href="css/main.css">
 </head>
 <body>
 	<!-- Header and Nav -->
-  <div class="navContainer">
-    <div class="row">
-      <div class="large-9 small-8 columns">
-        <div class="panel">
-          <a href="#"><h1>IdeaHub</h1></a>
-        </div>
+   <div class="navBar">
+    <div class="navContainer">
+      <div class="topLevelNav">
+        <a href="#"><h1>IdeaHub</h1></a>
+        <a class="login"><h4>Login</h4></a>
       </div>
-      <div class="large-3 small-4 columns">
-        <div class="panel">
-          <a class="login" href="#"><h4>Login</h4></a>
-        </div>
+      <div class="subLevelNav">
+        <h3>We haz idea!</h3>
       </div>
     </div>
   </div>
@@ -51,7 +47,7 @@
 		        </ul>
 		      </div>
 		      <div class="large-2 columns small-2 votesBox">
-		        <div class="login"><span class="icon"><a class="voteUp" data-idea-id="<%=ideaId%>" href="#">+</a></span></div>
+		        <div class="login"><span class="icon"><a class="voteUp" data-idea-id="<%= ideaId %>" href="#">+</a></span></div>
 		        <div class="votesCount">Vote count: <%= votes %></div>
 		        <button class="login buttonReset">I&#39;m interested!</button>
 		      </div>
@@ -98,5 +94,6 @@
 <script src="js/our_firebase.js" type="text/javascript"></script>
 
 <script src="js/script.js" type="text/javascript"></script>
+
 </body>
 </html>

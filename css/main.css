@@ -13,22 +13,9 @@ h1{
 	font-weight: 900;
 }
 
+
 /**********FOUNDATION RESET*****************/
 
-.panel{
-	margin: 0px;
-	background-color: #2f2f2f;
-	border:none;
-}
-
-
-.columns .panel{
-	padding: 0 ;
-}
-
-.ideaDesc{
-	height: 100px;
-}
 
 .buttonReset{
 	font-weight:normal;
@@ -37,38 +24,110 @@ h1{
 	background-color: #3498db;
 }
 
+.ideaDesc{
+	height: 150px;
+}
+
 
 /*****************NAV*********************/
-
-.navContainer{
-	width:100%;
+.navBar{
 	background-color: #2f2f2f;
 	position: fixed;
-	top: 0;
+	top: 0;	
+	transition: all 0.3s linear 0;
+	width:100%;
 	z-index: 100;
+	height: 71px;
 }
+
+.navBar:hover{
+	height: 117px;
+}
+
+
+.navContainer{
+	background-color: #2f2f2f;
+	margin: 0 auto;
+	width: 980px;
+}
+
 
 .mainBody{
 	margin-top: 84px;
 }
 
-.panel h1{
-	color: #7D7B73;
-	padding: 10px;
-	margin: 0;
-	width: 187px;
+.subLevelNav{
+	clear:both;
+	opacity: 0;
+	height: 0;
 }
 
-.panel a:hover h1, .panel a h4:hover{
+.navBar:hover .subLevelNav{
+	opacity: 100;
+	transition: all 0.1s linear 3s;
+	-webkit-transition: opacity 0.1s ease-out 0.1s;
+}
+
+.topLevelNav a h4{
+	color: #3498db;
+	margin:0;
+}
+
+.topLevelNav .login{
+	padding: 19px;
+	text-align: right;
+	margin: 0px 0px 0px 20px;
+	display: inline-block;
+	float: right;
+}
+
+.topLevelNav .login:hover{
 	background-color: #50136E;
 }
 
-.panel h4{
-	color: #3498db;
-	padding: 20px;
+.subLevelNav a{
+	padding: 10px 19px;
 	text-align: right;
-	margin: 0 0 0 auto;
-	width: 100px;
+	margin: 0px 0px 0px 20px;
+	display: inline-block;
+	float: right;
+}
+
+.subLevelNav a:hover{
+	background-color: #50136E;
+}
+
+.subLevelNav h3{
+	color: #ddd;
+	padding: 0 20px;
+	font-weight: 400;
+	float:left;
+}
+
+.subLevelNav h5{
+	color: #3498db;
+	margin:0;
+}
+
+.navContainer h1{
+	color: #7D7B73;
+	float:left;
+	padding: 5px 20px;
+	margin: 0;
+}
+
+.navContainer a:hover h1{
+	background-color: #50136E;
+}
+
+.navContainer .icon-cogs{
+	color: #3498db;
+	padding: 19px;
+	text-align: right;
+	margin: 0px 0px 0px 120px;
+	display: inline-block;
+	float: right;
+	font-size: 2em;
 }
 
 .votesCount{
@@ -80,9 +139,8 @@ h1{
 	text-align: right;
 }
 
-span.icon{
+.voteUp{
 	font-size: 3em;
 }
-
 
 

@@ -40,12 +40,15 @@ $(document).on("click", ".ideaSubmit", function(e){
 		userId: auth.user.id,
 		userName: auth.user.username,
 		avatar: auth.user.avatar_url,
+<<<<<<< HEAD
 		votes: [],
 		ideaId: ideaCounter,
+		interest: []
+=======
 		votes: [auth.user.id],
 		voted: "+",
 		ideaId: ideaCounter
-		interest: []
+>>>>>>> origin/htmlNavBar
 	});
 	
 	ideaCounter++;
