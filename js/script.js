@@ -13,20 +13,21 @@ var ideaTemplate = _.template(ideaTemplateHtml);
 // _________________________Auth Code______________________________________//
 
 var auth = new FirebaseSimpleLogin(myDataRef, function(error, user) {
+	var urlArray = window.location.pathname.split( '/' );
 
 	if (error) {
 	// an error occurred while attempting login
 		console.log(error);
 	} else if (user) {
 	// user authenticated with Firebase
-		if(window.location.pathname === "/index.html"){
-			window.location.assign("/user.html");
+		if(urlArray.indexOf("index.html") > -1){
+			window.location.assign("user.html");
 		}
 
 		this.user = user
 	} else {
-		if(window.location.pathname != "/index.html"){
-			window.location.assign("/index.html");
+		if(urlArray.indexOf("index.html" ) === -1){
+			window.location.assign("index.html");
 		}
 	}
 });
@@ -155,11 +156,7 @@ var updatePageInfo = function(title, desc, username, avatar, votes, voted, ideaI
 		voted = "voted!";
 	}
 
-	var userId = auth.user.id;
-	console.log(typeof interest);
-
 	if(auth.user && interest.indexOf(auth.user)){
-		console.log("this is working");
 		interested = "All in!";
 	}
 
