@@ -46,6 +46,7 @@ var IdeaView = Backbone.View.extend({
 		this.voted = options.voted;
 		this.ideaId = options.ideaId;
 		this.interest = options.interest;
+		this.interested = options.interested;
 	},
 
 	render: function() {
@@ -57,7 +58,8 @@ var IdeaView = Backbone.View.extend({
 			votes: this.votes,
 			ideaId: this.ideaId,
 			interest: this.interest,
-			voted: this.voted
+			voted: this.voted,
+			interested: this.interested
 		});
 		$(this.el).html(ideaHtml);
 		return this;
