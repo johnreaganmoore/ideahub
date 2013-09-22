@@ -19,15 +19,15 @@ var auth = new FirebaseSimpleLogin(myDataRef, function(error, user) {
 		console.log(error);
 	} else if (user) {
 	// user authenticated with Firebase
-		if(window.location.pathname === "index.html"){
-			window.location.assign("user.html");
-		}
+		// if(window.location.pathname === "index.html"){
+		// 	window.location.assign("user.html");
+		// }
 
 		this.user = user
 	} else {
-		if(window.location.pathname != "index.html"){
-			window.location.assign("index.html");
-		}
+		// if(window.location.pathname != "index.html"){
+		// 	window.location.assign("index.html");
+		// }
 	}
 });
 
@@ -185,4 +185,8 @@ $(document).on('click', ".login", function(e) {
 $(document).on('click', ".logOut", function(e) {
 	auth.logout();
 });
+
+//_________________________Sharing_____________________________//
+
+!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');
 
