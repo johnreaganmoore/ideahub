@@ -51,6 +51,23 @@ var IdeaView = Backbone.View.extend({
 		});
 		$(this.el).html(ideaHtml);
 		return this;
+	},
+
+	events: { 
+		"click .voteUp": "updateVote"
+
+	},
+
+	updateVote: function() {
+		this.votes ++;
+		fireBIdeas.child(this.ideaId).once("value", function(snapshot){
+			var ideaOb = snapshot.val();
+			ideaOb.votes = this.votes;
+
+			fireBIdeas.child(this.ideaId).set(ideaOb);
+		});
+
+		this.render();
 	}
 });
 
@@ -103,17 +120,4 @@ var updatePageInfo = function(title, desc, username, avatar, votes, ideaId){
 $(document).on('click', ".login", function(e) {
 	auth.login('github');
 });
-
-
-$(document).on("click", ".voteUp", function(e){
-	var ideaId = $(this).data("idea-id");
-
-	fireBIdeas.child(ideaId).once("value", function(snapshot){
-		var ideaOb = snapshot.val();
-		ideaOb.votes ++;
-
-		fireBIdeas.child(ideaId).set(ideaOb);
-	});
-});
-
 
