@@ -24,6 +24,10 @@ h1{
 	background-color: #3498db;
 }
 
+.ideaDesc{
+	height: 150px;
+}
+
 
 /*****************NAV*********************/
 .navBar{
@@ -97,6 +101,7 @@ h1{
 	color: #ddd;
 	padding: 0 20px;
 	font-weight: 400;
+	float:left;
 }
 
 .subLevelNav h5{
