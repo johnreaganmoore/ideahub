@@ -147,13 +147,18 @@ h1{
 	transition: all 0.3s linear;
 }
 
+<<<<<<< HEAD
 /*************Ideas*************************/
+
+.votes{
+=======
 .fullDesc{
 	height: 300px;
 	overflow: scroll;
 }
 
 .voteCount{
+>>>>>>> master
 	margin: 10px 0;
 	font-size: 1.3em;
 }
@@ -162,7 +167,7 @@ h1{
 	text-align: right;
 }
 
-
+<<<<<<< HEAD
 .comment-area {
 	background-color: #f6f6f6;
 	padding: 15px;
@@ -172,6 +177,8 @@ h1{
 	width: auto; max-height: 60px;
 }
 
+
+=======
 .voteUp{
 	font-size: 2em;
 }
@@ -180,6 +187,7 @@ h1{
 	font-size: 1.5em;
 	display: inline-block;
 }
+>>>>>>> master
 
 .ideaSubmit{
 	margin-top: 10px;
