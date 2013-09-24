@@ -1,5 +1,14 @@
 describe('IdeaView', function() {
 
+	// beforeEach(function(){
+
+	// 	this.addMatchers({
+	// 		prop: function(x) {
+	// 			return this.actual.x 
+	// 		}
+	// 	});
+	// });
+
 
 	it('initializes a idea view', function() {
 

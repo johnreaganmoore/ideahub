@@ -23,7 +23,7 @@ var auth = new FirebaseSimpleLogin(myDataRef, function(error, user) {
 		$(".hello").text("Welcome, " + user.username);
 		
 	} else {
-		window.location.assign("index.html");
+		// window.location.assign("index.html");
 	}
 });
 
