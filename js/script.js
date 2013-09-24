@@ -7,8 +7,8 @@
 // 	ideasCounter = snapshot.val();
 // });
 
-// var ideaTemplateHtml = $('.templates .idea-template').html();
-// var ideaTemplate = _.template(ideaTemplateHtml);
+var ideaTemplateHtml = $('.templates .idea-template').html();
+var ideaTemplate = _.template(ideaTemplateHtml);
 
 // // _________________________Auth Code______________________________________//
 
@@ -39,17 +39,17 @@
 
 var IdeaView = Backbone.View.extend({
 
-		initialize: function(options) {
-			this.author = options.author;
-			this.avatar =options.avatar;
-			this.title = options.title;
-			this.content = options.content;
-			this.votes = options.votes.length;
-			this.voted = options.voted;
-			this.ideaId = options.ideaId;
-			this.interest = options.interest;
-			this.interested = options.interested;
-		},
+	initialize: function(options) {
+		this.author = options.author;
+		this.avatar =options.avatar;
+		this.title = options.title;
+		this.content = options.content;
+		this.votes = options.votes.length;
+		this.voted = options.voted;
+		this.ideaId = options.ideaId;
+		this.interest = options.interest;
+		this.interested = options.interested;
+	},
 
 	render: function() {
 		var ideaHtml = ideaTemplate({
@@ -118,75 +118,75 @@ var IdeaView = Backbone.View.extend({
 
 
 
-// var ShowIdeasView = Backbone.View.extend({
+var ShowIdeasView = Backbone.View.extend({
 
-// 	initialize: function(options) {
-// 		this.ideaViews = [];
-// 	},
+	initialize: function(options) {
+		this.ideaViews = [];
+	},
 
-// 	add_new: function(obj){
-// 		var newIdeaView = new IdeaView(obj);
-// 		if(auth.user && obj.votes.indexOf(auth.user.id) > -1){
-// 			obj.voted = "voted";
-// 		}
+	add_new: function(obj){
+		var newIdeaView = new IdeaView(obj);
+		if(auth.user && obj.votes.indexOf(auth.user.id) > -1){
+			obj.voted = "voted";
+		}
 
-// 		if(auth.user && obj.interest.indexOf(auth.user) > -1){
-// 			obj.interest = "All in!";
-// 		}
+		if(auth.user && obj.interest.indexOf(auth.user) > -1){
+			obj.interest = "All in!";
+		}
 
-// 		var newIdeaHtml = newIdeaView.render().el;
-// 		this.ideaViews.push(newIdeaView);
-// 		$(this.el).append(newIdeaHtml);
-// 	},
+		var newIdeaHtml = newIdeaView.render().el;
+		this.ideaViews.push(newIdeaView);
+		$(this.el).append(newIdeaHtml);
+	},
 
-// 	render: function(){
-// 		for(var i = 0; i < this.ideaViews.length; i++){
-// 			var newIdeaHtml = this.ideaViews[i].render().el;
-// 			$(this.el).append(newIdeaHtml);
-// 		}
+	render: function(){
+		for(var i = 0; i < this.ideaViews.length; i++){
+			var newIdeaHtml = this.ideaViews[i].render().el;
+			$(this.el).append(newIdeaHtml);
+		}
+	}
+});
+
+var ideasView = new ShowIdeasView({
+	el: $('#ideas-feed')
+});
+
+//______________________________Load DataBase_______________________//
+
+
+// fireBIdeas.on('child_added', function(snapshot) {
+// 	var fireBaseObj = snapshot.val();
+
+// 	if(typeof fireBaseObj === "object"){
+// 		updatePageInfo(fireBaseObj.ideaTitle, fireBaseObj.ideaDesc, fireBaseObj.userName, fireBaseObj.avatar, fireBaseObj.votes, fireBaseObj.voted, fireBaseObj.ideaId, fireBaseObj.interest, fireBaseObj.interested);
 // 	}
 // });
 
-// var ideasView = new ShowIdeasView({
-// 	el: $('#ideas-feed')
-// });
-
-// //______________________________Load DataBase_______________________//
-
-
-// // fireBIdeas.on('child_added', function(snapshot) {
-// // 	var fireBaseObj = snapshot.val();
-
-// // 	if(typeof fireBaseObj === "object"){
-// // 		updatePageInfo(fireBaseObj.ideaTitle, fireBaseObj.ideaDesc, fireBaseObj.userName, fireBaseObj.avatar, fireBaseObj.votes, fireBaseObj.voted, fireBaseObj.ideaId, fireBaseObj.interest, fireBaseObj.interested);
-// // 	}
-// // });
-
-// var updatePageInfo = function(title, desc, username, avatar, votes, voted, ideaId, interest, interested){
-// 	if(auth.user && votes.indexOf(auth.user.id) > -1){
-// 		voted = "voted!";
-// 	}
-// 	console.log(interest);
-// 	for(var i = 0; i < interest.length; i++){
-// 		if(auth.user && interest[i].id === auth.user.id){
-// 			interested = "All in!";
-// 		}
-// 	}
+var updatePageInfo = function(title, desc, username, avatar, votes, voted, ideaId, interest, interested){
+	if(auth.user && votes.indexOf(auth.user.id) > -1){
+		voted = "voted!";
+	}
+	console.log(interest);
+	for(var i = 0; i < interest.length; i++){
+		if(auth.user && interest[i].id === auth.user.id){
+			interested = "All in!";
+		}
+	}
 
 
-// 	var obj = {
-// 		author: username,
-// 		avatar: avatar,
-// 		title: title,
-// 		content: desc,
-// 		votes: votes,
-// 		voted: voted,
-// 		ideaId: ideaId,
-// 		interest: interest,
-// 		interested: interested
-// 	};
-// 	ideasView.add_new(obj);
-// };
+	var obj = {
+		author: username,
+		avatar: avatar,
+		title: title,
+		content: desc,
+		votes: votes,
+		voted: voted,
+		ideaId: ideaId,
+		interest: interest,
+		interested: interested
+	};
+	ideasView.add_new(obj);
+};
 
 
 //_______________________Event Listeners______________________//

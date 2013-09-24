@@ -10,7 +10,6 @@ describe('IdeaView', function() {
 	// });
 
 
-	it('initializes a idea view', function() {
 
 		var options = {
 			author: "testAuthor",
@@ -26,6 +25,15 @@ describe('IdeaView', function() {
 
 		var testView = new IdeaView(options);
 
+	it('initializes an idea view', function() {
+	
 		expect(testView.author).toEqual("testAuthor");
+	});
+
+	it('renders an html view of the object', function() {
+
+		testView.render();
+
+		expect($('.ideas-feed')).toContain("testContent");
 	});
 });
