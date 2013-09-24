@@ -23,7 +23,7 @@ var auth = new FirebaseSimpleLogin(myDataRef, function(error, user) {
 		if(urlArray.indexOf("index.html") > -1){
 			window.location.assign("user.html");
 		}
-
+	
 		this.user = user
 		$(".hello").text("Welcome, " + user.username)
 	} else {
