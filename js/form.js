@@ -32,17 +32,18 @@ var auth = new FirebaseSimpleLogin(myDataRef, function(error, user) {
 
 
 $(document).on("click", ".ideaSubmit", function(e){
+	e.preventDefault();
 	var ideaTitle = $(".ideaTitle").val();
 	var ideaDesc = tinymce.get("ideaDesc").getContent();
 	var interestArry = [];
 	interestArry.push(auth.user);
 
 	fireBIdeas.child(ideaCounter.toString()).setWithPriority({
+		author: auth.user.username,
+		avatar: auth.user.avatar_url,
 		ideaTitle: ideaTitle, 
 		ideaDesc: ideaDesc,
 		userId: auth.user.id,
-		userName: auth.user.username,
-		avatar: auth.user.avatar_url,
 		votes: [auth.user.id],
 		voted: "+",
 		ideaId: ideaCounter,
