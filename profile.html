@@ -1,0 +1,92 @@
+<html>
+<head>
+	<title>Idea Hub</title>
+  <link rel="stylesheet" href="css/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="css/foundation.css">
+  <link rel="stylesheet" type="text/css" href="css/main.css">	
+</head>
+<body>
+	<!-- Header and Nav -->
+   <div class="navBar">
+    <div class="navContainer">
+      <div class="topLevelNav">
+        <a href="#"><h1>IdeaHub</h1></a>
+        <a class="login"><h4><i class="icon-github"></i> Login</h4></a>
+      </div>
+      <div class="subLevelNav">
+        <h3>We haz idea!</h3>
+      </div>
+    </div>
+  </div>
+  <!-- End Header and Nav -->
+  <div class="row mainBody">
+
+  <!-- Main Feed -->
+
+  <div class="large-12 columns">
+
+  <!-- Your Ideas -->
+  <div class="your-ideas-head">
+    <div class="row">
+      <div class="large-10 columns"><h1>Your Ideas </h1></div>
+      <div class="large-2 columns"><h1>2/3</h1></div>
+    </div>
+    <hr />
+  </div>
+
+  <div id="user-ideas">
+
+  </div>
+
+
+
+  <!--Start Templating-->
+  <div class="templates">
+    <script class="user-idea-template" type="text/template">
+      <div class="user-idea-template">
+        <div class="row">
+          <div class="large-8 columns"><h3><%= ideaTitle %></h3></div>
+          <div class="large-2 columns"><h3>Votes:<%= votes %></h3></div>
+          <div class="large-2 columns"><h3><%= interest %></h3></div> 
+        </div>
+        <hr />
+      </div>
+    </script>
+  </div>
+
+
+
+  <!--End Templating-->
+
+ 
+  <!-- Footer -->
+ 
+    <footer class="row">
+      <div class="large-12 small-12 columns">
+        <hr />
+        <div class="row">
+          <div class="large-5 small-5 columns">
+            <p>&copy; Copyright no one at all. Go to town.</p>
+          </div>
+          <div class="large-7 small-7 columns">
+            <ul class="inline-list right">
+              <li><a href="#">Logout</a></li>
+              <li><a href="#">Add Idea</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+<script src="js/vendor/jquery-1.10.2.js" type="text/javascript"></script>
+<script src="js/vendor/underscore.js" type="text/javascript"></script>
+<script src="js/vendor/backbone.js" type="text/javascript"></script>
+<script src='js/vendor/firebase-simple-login.js' type='text/javascript'></script>
+<script src='js/vendor/firebase.js'></script>
+
+
+<!-- <script src="js/script.js" type="text/javascript"></script> -->
+<script src="js/profile.js" type="text/javascript"></script>
+</body>
+</html>
