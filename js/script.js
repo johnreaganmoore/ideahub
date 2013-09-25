@@ -2,6 +2,7 @@ var myDataRef = new Firebase("https://idea-hub.firebaseio.com/");
 var fireBIdeas = myDataRef.child("ideas");
 var fireBIdeaCounter = myDataRef.child('ideasCounter');
 var ideasCounter;
+var onIndex = onIndex || false;
 
 fireBIdeaCounter.once("value", function(snapshot){
 	ideasCounter = snapshot.val();
@@ -20,7 +21,7 @@ var auth = new FirebaseSimpleLogin(myDataRef, function(error, user) {
 		console.log(error);
 	} else if (user) {
 	// user authenticated with Firebase
-		if(urlArray.indexOf("index.html") > -1){
+		if(urlArray.indexOf("index.html") > -1 || onIndex){
 			window.location.assign("user.html");
 		}
 
@@ -166,7 +167,6 @@ var updatePageInfo = function(title, desc, username, avatar, votes, voted, ideaI
 	if(auth.user && votes.indexOf(auth.user.id) > -1){
 		voted = "voted!";
 	}
-	console.log(interest);
 	for(var i = 0; i < interest.length; i++){
 		if(auth.user && interest[i].id === auth.user.id){
 			interested = "All in!";
