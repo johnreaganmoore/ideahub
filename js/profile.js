@@ -60,4 +60,14 @@ var sample = {
 	}
 };
 
+var sample1 = {
+	data: {
+		title: "Another title",
+		votes: 6,
+		interest:3
+	}
+};
+
 userIdeasView.add_new(sample);
+
+userIdeasView.add_new(sample1);
