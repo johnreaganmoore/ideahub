@@ -2,7 +2,6 @@
 // Must diable redirects in script.js under Auth Code to run test.
 
 
-
 describe('updatePageInfo ', function(){
 	beforeEach(function(){
 		var tempObj = {
@@ -19,8 +18,12 @@ describe('updatePageInfo ', function(){
 		updatePageInfo(tempObj);
 	});
 
-	it("successfully loads a fake idea with div.author author === author", function(){
+	it("successfully loads a fake idea with div.author === author", function(){
 		expect($(".author").text()).toBe("author");
+	});
+
+	it("successfully loads a fake idea with div.ideaDesc === desc", function(){
+		expect($(".ideaDesc").text()).toBe("ideaDesc");
 	});
 });
 
@@ -30,3 +33,4 @@ describe('Test if views..', function () {
   	expect($('#ideas-feed')).toExist;
   })
 });
+
