@@ -26,7 +26,7 @@
   <div class="large-12 columns">
 
   <!-- Your Ideas -->
-  <div class="your-ideas-head">
+  <div class="your-ideas">
     <div class="row">
       <div class="large-10 columns"><h1>Your Ideas </h1></div>
       <div class="large-2 columns"><h1>2/3</h1></div>
@@ -38,6 +38,18 @@
 
   </div>
 
+  <div class="your-interests">
+    <div class="row">
+      <div class="large-10 columns"><h1>Your Interests </h1></div>
+      <div class="large-2 columns"><h1>3</h1></div>
+    </div>
+    <hr />
+  </div>
+
+  <div id="user-interests">
+
+  </div>
+
 
 
   <!--Start Templating-->
@@ -45,9 +57,20 @@
     <script class="user-idea-template" type="text/template">
       <div class="user-idea-template">
         <div class="row">
-          <div class="large-8 columns"><h3><%= ideaTitle %></h3></div>
-          <div class="large-2 columns"><h3>Votes:<%= votes %></h3></div>
-          <div class="large-2 columns"><h3><%= interest %></h3></div> 
+          <div class="large-8 columns"><h3><a><%= ideaTitle %></a></h3></div>
+          <div class="large-2 columns"><h3><a>Votes:<%= votes %></a></h3></div>
+          <div class="large-2 columns"><h3><a><%= interest %></a></h3></div> 
+        </div>
+        <hr />
+      </div>
+    </script>
+
+    <script class="user-interests-template" type="text/template">
+      <div class="user-interests-template">
+        <div class="row">
+          <div class="large-8 columns"><h3><a><%= ideaTitle %></a></h3></div>
+          <div class="large-2 columns"><h3><a>Votes:<%= votes %></a></h3></div>
+          <div class="large-2 columns"><h3><a><%= response %></a></h3></div> 
         </div>
         <hr />
       </div>
