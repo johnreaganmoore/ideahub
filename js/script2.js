@@ -156,4 +156,6 @@ var ideasView = new MainView({
 	el: $('#ideas-feed')
 });
 
+initFireBase(); //comment out when testing.
+
 
