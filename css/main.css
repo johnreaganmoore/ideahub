@@ -184,3 +184,19 @@ h1{
 	font-size: .25em;
 	vertical-align: bottom;
 }
+
+.interested-user {
+	text-align: center;
+}
+
+.interested-user img {
+	margin-bottom: 20px;
+}
+
+.intersted-user p {
+	text-align: center;
+}
+
+.interested-avatar {
+	padding: 20 70 0 70;
+}
