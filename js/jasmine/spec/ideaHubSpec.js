@@ -1,5 +1,7 @@
 
-// Must diable redirects in script.js to run test.
+// Must diable redirects in script.js under Auth Code to run test.
+
+
 
 describe('updatePageInfo ', function(){
 	beforeEach(function(){
@@ -21,7 +23,6 @@ describe('updatePageInfo ', function(){
 		expect($(".author").text()).toBe("author");
 	});
 });
-
 
 
 describe('Test if views..', function () {
