@@ -177,3 +177,10 @@ h1{
 .avatar{
 	width:100px;
 }
+
+/***********************Profile Page and Profile Items*******************************/
+
+.edit-title {
+	font-size: .25em;
+	vertical-align: bottom;
+}
