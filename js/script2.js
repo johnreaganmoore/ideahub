@@ -63,7 +63,7 @@ var IndiView = Backbone.View.extend({
 			this.data.voted = "voted";
 		}
 
-		if(auth.user && this.data.interest.indexOf(auth.user) > -1){
+		if(auth.user && this.data.interest.indexOf(auth.user) === -1){
 			this.data.interested = "All in!";
 		}
 
