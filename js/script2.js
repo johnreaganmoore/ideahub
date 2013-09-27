@@ -1,3 +1,4 @@
+
 var myFireBase = new Firebase("https://idea-hub.firebaseio.com/")
 	, fireBIdeas = myFireBase.child("ideas")
 	, fireBIdeaCounter = myFireBase.child('ideasCounter')
@@ -5,12 +6,12 @@ var myFireBase = new Firebase("https://idea-hub.firebaseio.com/")
 	, onIndex = onIndex || false
 	, auth
 	, ideasCounter
-	, ideaTemplateHtml = $('.templates .idea-template').html()
+	, ideaTemplateHtml = $('.ideaTemplate').html()
 	, ideaTemplate = _.template(ideaTemplateHtml)
 ;
 
-var initFireBase = function(){
-	auth = new FirebaseSimpleLogin(myFireBase, function(error, user) {
+var authenticate = function(){
+		auth = new FirebaseSimpleLogin(myFireBase, function(error, user) {
 		var urlArray = window.location.pathname.split( '/' );
 
 		if (error) {
@@ -18,19 +19,22 @@ var initFireBase = function(){
 			console.log(error);
 		} else if (user) {
 		// user authenticated with Firebase
-			// if(urlArray.indexOf("index.html") > -1 || onIndex){
-			// 	window.location.assign("user.html");
-			// }
+			if(urlArray.indexOf("index.html") > -1 || onIndex){
+				window.location.assign("user.html");
+			}
 
 			this.user = user
 			$(".hello").text("Welcome, " + user.username)
 		} else {
-			// if(urlArray.indexOf("index.html" ) === -1){
-			// 	window.location.assign("index.html");
-			// }
+			if(urlArray.indexOf("index.html" ) === -1){
+				window.location.assign("index.html");
+			}
 		}
 	});
+}
 
+var initFireBase = function(){
+	authenticate();
 //______________________________Unload DataBase_______________________//
 	
 	fireBIdeas.on('child_added', function(snapshot) {
@@ -40,10 +44,10 @@ var initFireBase = function(){
 			updatePageInfo(fireBaseObj);
 		}
 	});
+};
 
-	var updatePageInfo = function(obj){
-		ideasView.add_new(obj);
-	};
+var updatePageInfo = function(obj){
+	ideasView.add_new(obj);
 };
 
 //____________________________BackBone___________________________________//
@@ -60,7 +64,7 @@ var IndiView = Backbone.View.extend({
 		}
 
 		if(auth.user && this.data.interest.indexOf(auth.user) > -1){
-			this.data.interest = "All in!";
+			this.data.interested = "All in!";
 		}
 
 
@@ -146,16 +150,81 @@ var MainView = Backbone.View.extend({
 
 	render: function(){
 		for(var i = 0; i < this.collection.length; i++){
-			var newIdeaHtml = this.collection[i].render().el;
+			var newHtml = this.collection[i].render().el;
 			$(this.el).append(newHtml);
 		}
 	}
 });
 
 var ideasView = new MainView({
-	el: $('#ideas-feed')
+	el: $('#ideaFeed')
 });
 
-initFireBase(); //comment out when testing.
+//_______________________Event Listeners______________________//
+
+$(document).on('click', ".login", function(e) {
+	auth.login('github');
+});
+
+$(document).on('click', ".logOut", function(e) {
+	auth.logout();
+});
+
+$(document).on("click", ".showMoreDesc", function(e){
+	e.preventDefault();
+	if($(this).text() === "Show More"){
+	 	$(this).text("Show Less")
+	}else {
+		$(this).text("Show More")
+	}
+	$(this).closest(".columns").find(".ideaDesc").toggleClass("fullDesc");
+});
+
+//_____________________________Form Functionality_________________///
+
+
+$(document).on("click", ".ideaSubmit", function(e){
+	e.preventDefault();
+	var ideaTitle = $(".ideaTitle").val();
+	var ideaDesc = tinymce.get("ideaDesc").getContent();
+	var interestArry = [];
+	interestArry.push(auth.user);
+
+	fireBIdeas.child(ideaCounter.toString()).setWithPriority({
+		author: auth.user.username,
+		avatar: auth.user.avatar_url,
+		ideaTitle: ideaTitle, 
+		ideaDesc: ideaDesc,
+		userId: auth.user.id,
+		votes: [auth.user.id],
+		voted: "+",
+		ideaId: ideaCounter,
+		interest: interestArry,
+		interested: "I'm interested"
+	},99999);
+	
+	ideaCounter++;
+	fireBIdeaCounter.set(ideaCounter);
+});
+
+$(document).on("click", ".logOut", function(e){
+	e.preventDefault();
+	auth.logout();
+});
+
+tinymce.init({
+	selector: "textarea",
+	plugins: [""],
+	menubar: false,
+	statusbar: false,
+	toolbar: "bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent" 
+});
+
+//_________________________Sharing_____________________________//
+
+!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');
+
+
+//initFireBase(); //comment out when testing.
 
 

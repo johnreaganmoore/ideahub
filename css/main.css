@@ -140,7 +140,7 @@ h1{
 	font-size: 2em;
 }
 
-.displayDesc{
+.ideaDesc{
 	height: 90px;
 	margin-bottom: 10px;
 	overflow: hidden;
@@ -149,7 +149,7 @@ h1{
 
 .fullDesc{
 	height: 300px;
-	overflow: scroll;
+	overflow: auto;
 }
 
 .voteCount{
