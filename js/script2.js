@@ -1,5 +1,6 @@
 
 var myFireBase = new Firebase("https://idea-hub.firebaseio.com/")
+	, fireBUsers = myFireBase.child("users")
 	, fireBIdeas = myFireBase.child("ideas")
 	, fireBIdeaCounter = myFireBase.child('ideasCounter')
 	, ideasCounter
@@ -22,6 +23,15 @@ var authenticate = function(){
 			if(urlArray.indexOf("index.html") > -1 || onIndex){
 				window.location.assign("user.html");
 			}
+
+			fireBUsers.once("value", function(snapshot){
+				var currentUser = snapshot.val();
+
+				if(auth.user.id !== currentUser.id){
+					fireBUsers.child(auth.user.id).set(auth.user);
+				}
+			});
+
 
 			this.user = user
 			$(".hello").text("Welcome, " + user.username)
@@ -62,8 +72,8 @@ var IndiView = Backbone.View.extend({
 		if(auth.user && this.data.votes.indexOf(auth.user.id) > -1){
 			this.data.voted = "voted";
 		}
-
-		if(auth.user && this.data.interest.indexOf(auth.user) === -1){
+		console.log(this.data.interest);
+		if(auth.user && this.data.interest.indexOf(auth.user) > 0){
 			this.data.interested = "All in!";
 		}
 
@@ -112,7 +122,7 @@ var IndiView = Backbone.View.extend({
 
 	updateInterest: function(e) {
 		e.preventDefault();
-
+		console.log("is this getting called?")
 		if(this.data.interested === "I'm interested"){
 			this.data.interested = "All in!";
 
