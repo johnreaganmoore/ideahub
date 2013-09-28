@@ -198,8 +198,14 @@ h1{
 	.navContainer{
 		width: 100%;
 	}
-
 }
+
+@media only screen and (max-width: 550px) {
+	.hello{
+		display:none;
+	}
+}
+
 
 
 
