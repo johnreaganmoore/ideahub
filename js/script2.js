@@ -220,50 +220,74 @@ var formInit = function(){
 
 //________________________Helpers________________________________//
 var addNewIdea = function(){
-	var ideaTitle = $(".ideaTitle").val()
-		, ideaDesc = tinymce.get("ideaDesc").getContent()
-		, ideaCounter
-		, numWanted = parseInt($(".numWanted").val())
-		, desiredSkills = $(".desiredSkills").val()
-	;
+	if(formValid()){
+		var ideaTitle = $(".ideaTitle").val()
+			, ideaDesc = tinymce.get("ideaDesc").getContent()
+			, ideaCounter
+			, numWanted = parseInt($(".numWanted").val())
+			, desiredSkills = $(".desiredSkills").val()
+		;
 
-	myFireBase.child("ideaCounter").once("value", function(snapshot){
-		// must wait for fireBase's response before moving forward.
-		ideaCounter = snapshot.val()
+		myFireBase.child("ideaCounter").once("value", function(snapshot){
+			// must wait for fireBase's response before moving forward.
+			ideaCounter = snapshot.val()
 
-		// interestList and voteList keeps track of who is interested/voted in this idea. 
-	    // It may not be an empty array since firebase will not accept it.
-	    // interestList and voteList lives in the value of fireBIdeas.child(ideaID)
-		fireBIdeas.child(ideaCounter.toString()).setWithPriority({
-			author: auth.user.username,
-			avatar: auth.user.avatar_url,
-			ideaTitle: ideaTitle, 
-			ideaDesc: ideaDesc,
-			authorId: auth.user.id,
-			voteCount: [ideaCounter],
-			ideaId: ideaCounter,
-			interestList: [auth.user.id],
-			numWanted: numWanted,
-			desiredSkills: desiredSkills
-		},99999);
+			// interestList and voteList keeps track of who is interested/voted in this idea. 
+		    // It may not be an empty array since firebase will not accept it.
+		    // interestList and voteList lives in the value of fireBIdeas.child(ideaID)
+			fireBIdeas.child(ideaCounter.toString()).setWithPriority({
+				author: auth.user.username,
+				avatar: auth.user.avatar_url,
+				ideaTitle: ideaTitle, 
+				ideaDesc: ideaDesc,
+				authorId: auth.user.id,
+				voteCount: [ideaCounter],
+				ideaId: ideaCounter,
+				interestList: [auth.user.id],
+				numWanted: numWanted,
+				desiredSkills: desiredSkills
+			},99999);
 
-		// Must first dump out the data, push the new author and then send back the data to firebase.
-		// If we use firebase's push command it will convert the array as an object
-		// rather than keeping it as an array.
-		fireBUsers.child(auth.user.id).once("value", function(snapshot){
-			var tempUser = snapshot.val();
-			tempUser.authorList.push(ideaCounter);
-			tempUser.voteList.push(ideaCounter);
-			tempUser.iList.push(ideaCounter);
+			// Must first dump out the data, push the new author and then send back the data to firebase.
+			// If we use firebase's push command it will convert the array as an object
+			// rather than keeping it as an array.
+			fireBUsers.child(auth.user.id).once("value", function(snapshot){
+				var tempUser = snapshot.val();
+				tempUser.authorList.push(ideaCounter);
+				tempUser.voteList.push(ideaCounter);
+				tempUser.iList.push(ideaCounter);
 
-			fireBUsers.child(auth.user.id).set(tempUser);
-			ideaCounter++;
-			myFireBase.child("ideaCounter").set(ideaCounter);
-			window.location.assign("user.html");
+				fireBUsers.child(auth.user.id).set(tempUser);
+				ideaCounter++;
+				myFireBase.child("ideaCounter").set(ideaCounter);
+				window.location.assign("user.html");
+			});
 		});
-	});
+	}
 };
 
+var formValid = function(){
+	var valid = true;
+	if($(".ideaTitle").val() === ""){
+		$(".ideaTitle").addClass("error");
+		valid = false;
+	}
+	if(isNaN(parseInt($(".numWanted").val()))){
+		$(".numWanted").addClass("error");
+		$(".numWanted").val("");
+		valid = false;
+	}
+	if($(".desiredSkills").val() === ""){
+		$(".desiredSkills").addClass("error");
+		valid = false;
+	}
+	if(!(tinyMCE.activeEditor.isDirty())){
+		alert("Don't forget your project description!")
+		valid = false;
+	}
+
+	return valid;
+}
 
 var recordNewUser = function(){
 	fireBUsers.once("value", function(snapshot){

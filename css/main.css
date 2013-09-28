@@ -196,12 +196,20 @@ h1{
 }
 
 /*******************FORM*******************/
+.formBody{
+	margin-top: 30px;
+}
+
 .formLastRow{
 	margin-top: 10px;
 }
 
 .formLastRow:first-child{
 	padding-left: 0;
+}
+
+.formLastRow:last-child{
+	padding-right: 0;
 }
 
 /*****************Reflexive settings ******************/
