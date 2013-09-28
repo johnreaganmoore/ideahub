@@ -2,67 +2,55 @@
 var myFireBase = new Firebase("https://idea-hub.firebaseio.com/")
 	, fireBUsers = myFireBase.child("users")
 	, fireBIdeas = myFireBase.child("ideas")
-	, fireBIdeaCounter = myFireBase.child('ideaCounter')
 	, fireBUser
-	, ideaCounter
-	, onIndex = onIndex || false
+	, currentUser
 	, auth
 	, ideaTemplateHtml
 	, ideaTemplate
+	, urlArray = window.location.pathname.split( '/' )
+	, pageLocation = urlArray[urlArray.length - 1]
 ;
 
 var authenticate = function(){
-	fireBIdeaCounter.once("value", function(snapshot){
-		ideaCounter = snapshot.val()
-	});
-
 	auth = new FirebaseSimpleLogin(myFireBase, function(error, user) {
-		var urlArray = window.location.pathname.split( '/' );
+		var 
 
 		if (error) {
 		// an error occurred while attempting login
 			console.log(error);
 		} else if (user) {
-		// user authenticated with Firebase
-			if(urlArray.indexOf("index.html") > -1 || onIndex){
+			// user authenticated with Firebase
+			this.user = user
+
+			// once logged-in transfer user to user.html.
+			if(pageLocation === "index.html"){
 				window.location.assign("user.html");
 			}
 
-			fireBUsers.once("value", function(snapshot){
-				var usersDataB = snapshot.val();
+			// if user is new to page, record her info.
+			recordNewUser();
 
-				if(usersDataB[auth.user.id] === undefined){
-					var authorArray = [-1];
-					var voteList = [-1];
-					var iList = [-1];
-
-					fireBUsers.child(auth.user.id).set({
-						userOb: auth.user,
-						authorList: authorArray,
-						voteList: voteList,
-						iList: iList
-					});
-				}
+			// set currentUser to firebase obj for easier access.
+			fireBUsers.child(auth.user.id).once("value", function(snapshot){
+				currentUser = snapshot.val();
 			});
 
-
-			this.user = user
 			$(".hello").text("Welcome, " + user.username)
 		} else {
-			if(urlArray.indexOf("index.html" ) === -1){
+			// Redirects users who have not logged in.
+			if(pageLocation !== "index.html"){
 				window.location.assign("index.html");
 			}
 		}
 	});
 }
 
-var initFireBase = function(){
-	authenticate();
 
-	ideaTemplateHtml = $('.ideaTemplate').html()
-	ideaTemplate = _.template(ideaTemplateHtml)
 //______________________________Unload DataBase_______________________//
-	
+
+var initFireBase = function(){
+								ideaTemplateHtml = $('.ideaTemplate').html() //DO NOT NEED TO DO THIS HERE!!!
+								ideaTemplate = _.template(ideaTemplateHtml)	
 	fireBIdeas.on('child_added', function(snapshot) {
 		var fireBaseObj = snapshot.val();
 
@@ -77,113 +65,114 @@ var updatePageInfo = function(obj){
 };
 
 //____________________________BackBone___________________________________//
+var createViews = function(obj){
+	var IndiView = Backbone.View.extend({
 
-var IndiView = Backbone.View.extend({
+		initialize: function(options) {
+			this.data = options.data;
+			this.data.voteText = "+";
+			this.data.interestText = "I'm interested";
+		},
 
-	initialize: function(options) {
-		this.data = options.data;
-		this.data.voteText = "+";
-		this.data.interestText = "I'm interested";
-	},
-
-	render: function() {
-		if(auth.user && this.data.votes.indexOf(auth.user.id) > -1){
-			this.data.voteText = "voted";
-		}
-		
-		if(auth.user && this.data.interest.indexOf(auth.user) > 0){
-			this.data.interestText = "All in!";
-		}
+		render: function() {
+			if(auth.user && currentUser.voteList.indexOf(this.data.ideaId) > -1){
+				this.data.voteText = "voted";
+			}
+			
+			if(auth.user && this.data.interest.indexOf(auth.user) > 0){
+				this.data.interestText = "All in!";
+			}
 
 
-		var ideaHtml = ideaTemplate({
-			author: this.data.author,
-			avatar: this.data.avatar,
-			ideaTitle: this.data.ideaTitle,
-			ideaDesc: this.data.ideaDesc,
-			voteCount: this.data.voteCount.length,
-			voteText: this.data.voted,
-			ideaId: this.data.ideaId,
-			interestList: this.data.interest,
-			interestText: this.data.interested
-		});
-
-		$(this.el).html(ideaHtml);
-
-		return this;
-	},
-
-	events: { 
-		"click .voteUp": "updateVote",
-		"click .interest": "updateInterest"
-	},
-
-	updateVote: function(e) {
-		e.preventDefault();
-		if(this.data.voteText === "+"){ //Triggers single votes!
-			this.data.voteText = "voted!";
-			this.data.voteCount ++;
-			var self = this.data;
-			fireBIdeas.child(self.ideaId.toString()).once("value", function(snapshot){
-				var ideaOb = snapshot.val();
-				var priority = snapshot.getPriority();
-				
-				ideaOb.voteCount.push(auth.user.id);
-				priority --;
-
-				fireBIdeas.child(self.ideaId.toString()).set(ideaOb);
-				fireBIdeas.child(self.ideaId.toString()).setPriority(priority);
+			var ideaHtml = ideaTemplate({
+				author: this.data.author,
+				avatar: this.data.avatar,
+				ideaTitle: this.data.ideaTitle,
+				ideaDesc: this.data.ideaDesc,
+				voteCount: this.data.voteCount.length,
+				voteText: this.data.voted,
+				ideaId: this.data.ideaId,
+				interestList: this.data.interest,
+				interestText: this.data.interested
 			});
-		ideasView.render();
+
+			$(this.el).html(ideaHtml);
+
+			return this;
+		},
+
+		events: { 
+			"click .voteUp": "updateVote",
+			"click .interest": "updateInterest"
+		},
+
+		updateVote: function(e) {
+			e.preventDefault();
+			if(this.data.voteText === "+"){ //Triggers single votes!
+				this.data.voteText = "voted!";
+				this.data.voteCount ++;
+				var self = this.data;
+				fireBIdeas.child(self.ideaId.toString()).once("value", function(snapshot){
+					var ideaOb = snapshot.val();
+					var priority = snapshot.getPriority();
+					
+					ideaOb.voteCount.push(auth.user.id);
+					priority --;
+
+					fireBIdeas.child(self.ideaId.toString()).set(ideaOb);
+					fireBIdeas.child(self.ideaId.toString()).setPriority(priority);
+				});
+			ideasView.render();
+			}
+		},
+
+		updateInterest: function(e) {
+			e.preventDefault();
+			console.log("is this getting called?")
+			if(this.data.interested === "I'm interested"){
+				this.data.interested = "All in!";
+
+				var self = this.data;
+				fireBIdeas.child(self.ideaId.toString()).once("value", function(snapshot) {
+					var ideaOb = snapshot.val();
+
+					ideaOb.interest.push(auth.user);
+
+					fireBIdeas.child(self.ideaId.toString()).set(ideaOb);
+				});
+			ideasView.render();
+			}
 		}
-	},
-
-	updateInterest: function(e) {
-		e.preventDefault();
-		console.log("is this getting called?")
-		if(this.data.interested === "I'm interested"){
-			this.data.interested = "All in!";
-
-			var self = this.data;
-			fireBIdeas.child(self.ideaId.toString()).once("value", function(snapshot) {
-				var ideaOb = snapshot.val();
-
-				ideaOb.interest.push(auth.user);
-
-				fireBIdeas.child(self.ideaId.toString()).set(ideaOb);
-			});
-		ideasView.render();
-		}
-	}
-});
+	});
 
 
 
-var MainView = Backbone.View.extend({
+	var MainView = Backbone.View.extend({
 
-	initialize: function(options) {
-		this.collection = [];
-	},
+		initialize: function(options) {
+			this.collection = [];
+		},
 
-	add_new: function(obj){
-		var newView = new IndiView({ data: obj });
-		this.collection.push(newView);
+		add_new: function(obj){
+			var newView = new IndiView({ data: obj });
+			this.collection.push(newView);
 
-		var newHtml = newView.render().el;
-		$(this.el).append(newHtml);
-	},
-
-	render: function(){
-		for(var i = 0; i < this.collection.length; i++){
-			var newHtml = this.collection[i].render().el;
+			var newHtml = newView.render().el;
 			$(this.el).append(newHtml);
-		}
-	}
-});
+		},
 
-var ideasView = new MainView({
-	el: $('#ideaFeed')
-});
+		render: function(){
+			for(var i = 0; i < this.collection.length; i++){
+				var newHtml = this.collection[i].render().el;
+				$(this.el).append(newHtml);
+			}
+		}
+	});
+
+	var ideasView = new MainView({
+		el: $('#ideaFeed')
+	});
+}
 
 //_______________________Event Listeners______________________//
 
@@ -210,12 +199,18 @@ $(document).on("click", ".showMoreDesc", function(e){
 
 $(document).on("click", ".ideaSubmit", function(e){
 	e.preventDefault();
-	var ideaTitle = $(".ideaTitle").val();
-	var ideaDesc = tinymce.get("ideaDesc").getContent();
-	// interestList keeps track of who is interested in this idea. 
-    // May be an empty array since firebase will simply delete it.
-    // interestList lives in the value of fireBIdeas.child(ideaID)
-	var interestList = [-1];
+	var ideaTitle = $(".ideaTitle").val()
+		, ideaDesc = tinymce.get("ideaDesc").getContent()
+		// interestList keeps track of who is interested in this idea. 
+	    // May be an empty array since firebase will simply delete it.
+	    // interestList lives in the value of fireBIdeas.child(ideaID)
+		, interestList = [-1]
+		, ideaCounter
+	;
+
+	myFireBase.child("ideaCounter").once("value", function(snapshot){
+		ideaCounter = snapshot.val()
+	});
 
 	fireBIdeas.child(ideaCounter.toString()).setWithPriority({
 		author: auth.user.username,
@@ -260,7 +255,29 @@ tinymce.init({
 
 !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');
 
+//_____________________Helpers________________________________//
+
+var recordNewUser = function(){
+	fireBUsers.once("value", function(snapshot){
+		var usersDataB = snapshot.val();
+
+		if(usersDataB[auth.user.id] === undefined){
+			// Firebase does not accept empty arrays.
+			var authorArray = [-1]
+				, voteList = [-1]
+				, iList = [-1]
+			;
+
+			fireBUsers.child(auth.user.id).set({
+				userOb: auth.user,
+				authorList: authorArray,
+				voteList: voteList,
+				iList: iList
+			});
+		}
+	});
+};
 
 //initFireBase(); //comment out when testing.
-
+authenticate();
 
