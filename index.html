@@ -33,7 +33,7 @@
   </div>
 
   <script class="ideaTemplate" type="text/template">
-        <div class="row">
+        <div class="row ideaContainer">
           <div class="large-2 columns small-3 avatar"><img src="<%= avatar %>" /><br>
             <p class="author"><%=author%></p>
           </div>
@@ -44,6 +44,9 @@
             <ul class="inline-list">
               <li><a href="" class="showMoreDesc">Show More</a></li>
               <li><a href="https://twitter.com/share" class="twitter-share-button" data-text="Great Idea:">Tweet</a></li>
+            </ul>
+            <ul class="inline-list">
+                <li>Looking for <%= numWanted %> members with skills: <%= desiredSkills %></li>
             </ul>
           </div>
           <div class="large-2 columns small-2 votesBox">
