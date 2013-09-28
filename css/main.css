@@ -29,10 +29,9 @@ h1{
 	background-color: #3498db;
 }
 
-.row h3{
-	margin: 0px 0px 5px;
+.row{ 
+	margin-bottom: 20px;
 }
-
 
 /*****************NAV*********************/
 .navBar{
@@ -190,6 +189,15 @@ h1{
 
 .author{
 	word-wrap: break-word;
+}
+
+/*******************FORM*******************/
+.formLastRow{
+	margin-top: 10px;
+}
+
+.formLastRow:first-child{
+	padding-left: 0;
 }
 
 /*****************Reflexive settings ******************/
