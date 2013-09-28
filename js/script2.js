@@ -83,7 +83,9 @@ var ideaBackBone = {
 					voteText: self.data.voteText,
 					ideaId: self.data.ideaId,
 					interestList: self.data.interest,
-					interestText: self.data.interestText
+					interestText: self.data.interestText,
+					numWanted: self.data.numWanted,
+					desiredSkills: self.data.desiredSkills
 				});
 				$(self.el).html(ideaHtml);
 			};
@@ -214,11 +216,12 @@ var formInit = function(){
 	});
 };
 
-//_________________________Sharing_____________________________//
+//_________________________Twitter____________________________//
 
 !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');
 
 //________________________Helpers________________________________//
+
 var addNewIdea = function(){
 	if(formValid()){
 		var ideaTitle = $(".ideaTitle").val()
