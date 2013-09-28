@@ -25,46 +25,44 @@
     </div>
   </div>
   <!-- End Header and Nav -->
+  
   <div class="row mainBody">
 
   <!-- Main Feed -->
 
-  <div class="large-12 columns">
+    <div class="large-12 columns">
+      <div id="ideaFeed"></div>
+    </div>
 
-
-
-  <!--Start Templating-->
-  <div id="ideaFeed"></div>
-
- <script class="ideaTemplate" type="text/template">
-        <div class="row">
-          <div class="large-2 columns small-3 avatar"><img src="<%= avatar %>" /><br>
-            <p class="author"><%=author%></p>
-          </div>
-          <div class="large-8 columns small-7">
-            <h3 class="ideaTitle"><%= ideaTitle %></h3> 
-          
-            <div class="ideaDesc"><%= ideaDesc %></div>
-            <ul class="inline-list">
-              <li><a href="" class="showMoreDesc">Show More</a></li>
-              <li><a href="https://twitter.com/share" class="twitter-share-button" data-text="Great Idea:">Tweet</a></li>
-            </ul>
-          </div>
-          <div class="large-2 columns small-2 votesBox">
-            <div><a class="voteUp" href="" data-idea-id="<%= ideaId %>"><%= voteText %></a></div>
+    <!--Template!-->
+    <script class="ideaTemplate" type="text/template">
+          <div class="row ideaContainer">
+            <div class="large-2 columns small-3 avatar"><img src="<%= avatar %>" /><br>
+              <p class="author"><%=author%></p>
+            </div>
+            <div class="large-8 columns small-7">
+              <h3 class="ideaTitle"><%= ideaTitle %></h3> 
             
-            <div data-idea-id="<%= ideaId %>" class="voteCount">votes: <span class="voteNum"><%= voteCount %></span></div>
-            <button class="interest buttonReset"><%= interestText %></button>
+              <div class="ideaDesc"><%= ideaDesc %></div>
+              <ul class="inline-list">
+                <li><a href="" class="showMoreDesc">Show More</a></li>
+                <li><a href="https://twitter.com/share" class="twitter-share-button" data-text="Great Idea:">Tweet</a></li>
+              </ul>
+            </div>
+            <div class="large-2 columns small-2 votesBox">
+              <div><a class="voteUp" href="" data-idea-id="<%= ideaId %>"><%= voteText %></a></div>
+              
+              <div data-idea-id="<%= ideaId %>" class="voteCount">votes: <span class="voteNum"><%= voteCount %></span></div>
+              <button class="interest buttonReset"><%= interestText %></button>
+            </div>
           </div>
-        </div>
-  </script>
+    </script>
 
   <!--End Templating-->
 
  
   <!-- Footer -->
- 
-    <footer class="row">
+   <footer>
       <div class="large-12 small-12 columns">
         <hr />
         <div class="row">

@@ -29,9 +29,6 @@ h1{
 	background-color: #3498db;
 }
 
-.row{ 
-	margin-bottom: 20px;
-}
 
 /*****************NAV*********************/
 .navBar{
@@ -53,13 +50,6 @@ h1{
 	background-color: #2f2f2f;
 	margin: 0 auto;
 	width: 980px;
-}
-
-
-.mainBody{
-	padding: 94px 15px 0px;
-	background-color: rgba(255, 255, 255, .6);
-	box-shadow: 0px 0px 20px #ccc;
 }
 
 
@@ -148,6 +138,22 @@ h1{
 
 
 /************      BODY      **********************/
+.avatar{
+	width:100px;
+}
+
+.author{
+	word-wrap: break-word;
+}
+
+#ideaFeed .ideaContainer:before{
+	content: ''
+	display: inline-block;
+	margin: 10px 0px 40px;
+	width: 100%;
+	height: 2px;
+	background: #eee;
+}
 
 .ideaDesc{
 	height: 90px;
@@ -156,9 +162,19 @@ h1{
 	transition: all 0.3s linear;
 }
 
+.ideaSubmit{
+	margin-top: 5px;
+}
+
 .fullDesc{
 	height: 300px;
 	overflow: auto;
+}
+
+.mainBody{
+	padding: 60px 0px 0px;
+	background-color: rgba(255, 255, 255, .6);
+	box-shadow: 0px 0px 20px #ccc;
 }
 
 .voteCount{
@@ -177,18 +193,6 @@ h1{
 .voteNum{
 	font-size: 1.5em;
 	display: inline-block;
-}
-
-.ideaSubmit{
-	margin-top: 10px;
-}
-
-.avatar{
-	width:100px;
-}
-
-.author{
-	word-wrap: break-word;
 }
 
 /*******************FORM*******************/

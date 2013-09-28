@@ -223,6 +223,8 @@ var addNewIdea = function(){
 	var ideaTitle = $(".ideaTitle").val()
 		, ideaDesc = tinymce.get("ideaDesc").getContent()
 		, ideaCounter
+		, numWanted = parseInt($(".numWanted").val())
+		, desiredSkills = $(".desiredSkills").val()
 	;
 
 	myFireBase.child("ideaCounter").once("value", function(snapshot){
@@ -240,7 +242,9 @@ var addNewIdea = function(){
 			authorId: auth.user.id,
 			voteCount: [ideaCounter],
 			ideaId: ideaCounter,
-			interestList: [auth.user.id]
+			interestList: [auth.user.id],
+			numWanted: numWanted,
+			desiredSkills: desiredSkills
 		},99999);
 
 		// Must first dump out the data, push the new author and then send back the data to firebase.
