@@ -183,6 +183,7 @@ $(document).on('click', ".login", function(e) {
 });
 
 $(document).on('click', ".logOut", function(e) {
+	e.preventDefault();
 	auth.logout();
 });
 
@@ -198,24 +199,20 @@ $(document).on("click", ".showMoreDesc", function(e){
 
 //_______________________Form Functionality____________________///
 
+var formInit = function(){
+	$(document).on("click", ".ideaSubmit", function(e){
+		e.preventDefault();
+		addNewIdea();
+	});
 
-$(document).on("click", ".ideaSubmit", function(e){
-	e.preventDefault();
-	addNewIdea();
-});
-
-$(document).on("click", ".logOut", function(e){
-	e.preventDefault();
-	auth.logout();
-});
-
-tinymce.init({
-	selector: "textarea",
-	plugins: [""],
-	menubar: false,
-	statusbar: false,
-	toolbar: "bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent" 
-});
+	tinymce.init({
+		selector: "textarea",
+		plugins: [""],
+		menubar: false,
+		statusbar: false,
+		toolbar: "bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent" 
+	});
+};
 
 //_________________________Sharing_____________________________//
 
@@ -293,6 +290,9 @@ switch(pageLocation){
 		break;
 	case "user.html":
 		initIdeas();
+		break;
+	case "form.html":
+		formInit();
 		break;
 	default:
 		break;
