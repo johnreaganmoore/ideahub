@@ -34,22 +34,22 @@
 
   <script class="ideaTemplate" type="text/template">
         <div class="row">
-          <div class="large-2 columns small-3 avatar"><img src=<%= avatar %> /><br>
+          <div class="large-2 columns small-3 avatar"><img src="<%= avatar %>" /><br>
             <p class="author"><%=author%></p>
           </div>
           <div class="large-8 columns small-7">
             <h3 class="ideaTitle"><%= ideaTitle %></h3> 
           
-            <p class="ideaDesc"><%= ideaDesc %></p>
+            <div class="ideaDesc"><%= ideaDesc %></div>
             <ul class="inline-list">
               <li><a href="" class="showMoreDesc">Show More</a></li>
               <li><a href="https://twitter.com/share" class="twitter-share-button" data-text="Great Idea:">Tweet</a></li>
             </ul>
           </div>
           <div class="large-2 columns small-2 votesBox">
-            <div><a class="voteUp login" href="" data-idea-id="<%= ideaId %>"><%= voted %></a></div>
+            <div><a class="voteUp" href="" data-idea-id="<%= ideaId %>"><%= voteText %></a></div>
             
-            <div data-idea-id="<%= ideaId %>" class="voteCount">votes: <span class="voteNum"><%= votes %></span></div>
+            <div data-idea-id="<%= ideaId %>" class="voteCount">votes: <span class="voteNum"><%= voteCount %></span></div>
             <button class="login buttonReset"><%= interested %></button>
           </div>
         </div>

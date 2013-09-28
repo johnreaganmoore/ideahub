@@ -183,3 +183,15 @@ h1{
 .author{
 	word-wrap: break-word;
 }
+
+/*****************Reflexive settings ******************/
+
+@media only screen and (max-width: 980px) {
+	.navContainer{
+		width: 100%;
+	}
+
+}
+
+
+
