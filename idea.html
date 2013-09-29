@@ -36,13 +36,20 @@
   <!-- Single Idea Template -->
     <script type="text/template" class="singleIdeaTemplate">
       <div class="row">
-        <div class="large-3 columns">
-          <div class="avatar"><img src="<%= avatar %>"/></div><br>
-          <div class="author"><%= author %></div>
+        <div class="large-2 small-2 columns">
+          <span class="avatar"><img src="<%= avatar %>"/></span>
+          <span class="author"><%= author %></span><br/><br/>
+          <span class="numWanted">Looking for <%= numWanted %> members.</span><br/><br/>
+          <span class="desiredSkills">Desired skills:<br/><%= desiredSkills%></span>
         </div>
-        <div class="large-9 columns">
+        <div class="large-10 small-10 columns">
           <h2 class="ideaTitle"><%= ideaTitle %></h2>
           <p><%= ideaDesc %><p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="large-12 columns">
+          
         </div>
       </div>
     </script>
