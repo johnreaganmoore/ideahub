@@ -199,7 +199,7 @@ $(document).on("click", ".showMoreDesc", function(e){
 	$(this).closest(".columns").find(".ideaDesc").toggleClass("fullDesc");
 });
 
-//_______________________Form Functionality____________________///
+//_______________________Form Initialize____________________///
 
 var formInit = function(){
 	$(document).on("click", ".ideaSubmit", function(e){
@@ -213,6 +213,22 @@ var formInit = function(){
 		menubar: false,
 		statusbar: false,
 		toolbar: "bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent" 
+	});
+};
+
+//______________________Idea Page Initialize__________________//
+
+var ideaInit = function(){
+	var currentIdeaId = getURLParameter("ideaId");
+
+	fireBIdeas.child(currentIdeaId).once("value", function(snapshot){
+		var ideaObj = snapshot.val()
+			, ideaHtml = $(".singleIdeaTemplate").html()
+			, ideaTemplate = _.template(ideaHtml)
+			, newHtml = ideaTemplate(ideaObj)
+		;
+		$(".singleIdeaFeed").html(newHtml);
+		console.log(ideaObj);
 	});
 };
 
@@ -313,6 +329,12 @@ var recordNewUser = function(){
 	});
 };
 
+var getURLParameter = function(name) {
+    return decodeURI(
+        (RegExp(name + '=' + '(.+?)(&|$)').exec(location.search)||[,null])[1]
+    );
+}
+
 authenticate();
 
 switch(pageLocation){
@@ -325,6 +347,8 @@ switch(pageLocation){
 	case "form.html":
 		formInit();
 		break;
+	case "idea.html":
+		ideaInit();
 	default:
 		break;
 }

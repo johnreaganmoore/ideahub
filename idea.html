@@ -10,7 +10,7 @@
   <div class="navBar">
     <div class="navContainer">
       <div class="topLevelNav">
-        <h1><a href="#">IdeaHub</a></h1>
+        <h1><a href="user.html">IdeaHub</a></h1>
         <i class="icon-cogs"></i>
         <div class="hello"></div>
       </div>
@@ -29,39 +29,24 @@
   <div class="row mainBody">
 
   <!-- Main Feed -->
-
     <div class="large-12 columns">
-      <div id="ideaFeed"></div>
+      <div class="singleIdeaFeed"></div>
     </div>
 
-    <!--Template!-->
-    <script class="ideaTemplate" type="text/template">
-          <div class="row ideaContainer">
-            <div class="large-2 columns small-3 avatar"><img src="<%= avatar %>" /><br>
-              <p class="author"><%=author%></p>
-            </div>
-            <div class="large-8 columns small-7">
-              <h3 class="ideaTitle"><a href="idea.html?ideaId=<%= ideaId %>"><%= ideaTitle %></a></h3> 
-            
-              <div class="ideaDesc"><%= ideaDesc %></div>
-              <ul class="inline-list">
-                <li><a href="" class="showMoreDesc">Show More</a></li>
-                <li><a href="https://twitter.com/share" class="twitter-share-button" data-text="Great Idea:">Tweet</a></li>
-              </ul>
-              <ul class="inline-list">
-                <li>Looking for <%= numWanted %> members with skills: <%= desiredSkills %></li>
-              </ul>
-            </div>
-            <div class="large-2 columns small-2 votesBox">
-              <div><a class="voteUp" href="" data-idea-id="<%= ideaId %>"><%= voteText %></a></div>
-              
-              <div data-idea-id="<%= ideaId %>" class="voteCount">votes: <span class="voteNum"><%= voteCount %></span></div>
-              <button class="interest buttonReset"><%= interestText %></button>
-            </div>
-          </div>
+  <!-- Single Idea Template -->
+    <script type="text/template" class="singleIdeaTemplate">
+      <div class="row">
+        <div class="large-3 columns">
+          <div class="avatar"><img src="<%= avatar %>"/></div><br>
+          <div class="author"><%= author %></div>
+        </div>
+        <div class="large-9 columns">
+          <h2 class="ideaTitle"><%= ideaTitle %></h2>
+          <p><%= ideaDesc %><p>
+        </div>
+      </div>
     </script>
 
-  <!--End Templating-->
 
  
   <!-- Footer -->
