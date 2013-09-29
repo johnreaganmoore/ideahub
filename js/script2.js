@@ -62,6 +62,9 @@ var initIdeas = function(){
 
 //____________________________BackBone___________________________________//
 var ideaBackBone = {
+
+//_______________________Backbone - HomePage_____________________________//
+
 	IndiView: Backbone.View.extend({
 
 		initialize: function(options) {
@@ -177,6 +180,8 @@ var ideaBackBone = {
 		}
 	})
 }
+
+//_______________________Backbone - ProfilePage_____________________________//
 
 //_______________________Event Listeners______________________//
 
