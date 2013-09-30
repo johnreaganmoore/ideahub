@@ -71,19 +71,19 @@ fireBUsers.child("5273755").child("authorList").once("value", function(snapshot)
 			var ideaId = snapshot.val();
 
 			fireBIdeas.child(ideaId).once("value", function(snapshot){
-				var tempOb = snapshot.val();
+				var ideaOb = snapshot.val();
 
-									console.log(tempOb.ideaTitle);
+									console.log(ideaOb.ideaTitle);
 
 				var tempData = {
 					data: {
-						title: tempOb.ideaTitle,
-						votes: tempOb.voteCount.length - 1,
-						interest: tempOb.interestList.length
+						title: ideaOb.ideaTitle,
+						votes: ideaOb.voteCount.length - 1,
+						interest: ideaOb.interestList.length
 					}
 				};
 
-						userIdeasView.add_new(tempData);
+				userIdeasView.add_new(tempData);
 
 			});		
 
@@ -92,28 +92,6 @@ fireBUsers.child("5273755").child("authorList").once("value", function(snapshot)
 		});
 	}
 });
-
-
-
-//Functional Idea Profile Display Hardcoded________________
-
-
-// fireBIdeas.child("25").once("value", function(snapshot){
-// 	tempOb = snapshot.val();
-
-// 	var sample2 ={
-// 		data: {
-// 			title: tempOb.ideaTitle,
-// 			votes: tempOb.voteCount.length - 1,
-// 			interest: tempOb.interestList.length
-// 		}
-
-// 	};
-
-// 	userIdeasView.add_new(sample2);
-
-// });
-
 
 
 //_________________User Interested Idea View created______________________
