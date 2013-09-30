@@ -2,8 +2,16 @@
 // Please comment out authenticate() in the script2 function before running this test!
 
 describe("initIdeas", function(){
-	it("creates a new ideaBackBone.MainView obj", function(){
+	beforeEach(function(){
 		initIdeas();
+	});
+
+	it("creates a new ideaBackBone.MainView obj called ideasView", function(){
+		expect(typeof ideasView).toBe("object");
+	});
+
+	it("ideasView has a property collection that is an array", function(){
+		expect(typeof ideasView.collection).toBeDefined();
 	});
 });
 
