@@ -1,6 +1,13 @@
 
 // Please comment out authenticate() in the script2 function before running this test!
 
+describe("initIdeas", function(){
+	it("creates a new ideaBackBone.MainView obj", function(){
+		initIdeas();
+	});
+});
+
+
 describe('updatePageInfo ', function(){
 	beforeEach(function(){
 		auth = "fake user";

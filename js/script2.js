@@ -335,7 +335,7 @@ var getURLParameter = function(name) {
     );
 }
 
-authenticate();
+//authenticate(); // disable when running Jasmine spec runner.
 
 switch(pageLocation){
 	case "index.html":
