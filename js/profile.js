@@ -61,66 +61,58 @@ var userIdeasView = new ShowUserIdeasView({
 //______________________Sample Data________________________________
 
 
-fireBUsers.child("2129914").child("authorList").once("value", function(snapshot){
+fireBUsers.child("5273755").child("authorList").once("value", function(snapshot){
 	authorList = snapshot.val();
 
-	console.log(authorList);
-})
+	for(var i = 1; i < authorList.length; i++){
+
+		fireBUsers.child("5273755").child("authorList").child(i).once("value", function(snapshot){
+
+			var ideaId = snapshot.val();
+
+			fireBIdeas.child(ideaId).once("value", function(snapshot){
+				var tempOb = snapshot.val();
+
+									console.log(tempOb.ideaTitle);
+
+				var tempData = {
+					data: {
+						title: tempOb.ideaTitle,
+						votes: tempOb.voteCount.length - 1,
+						interest: tempOb.interestList.length
+					}
+				};
+
+						userIdeasView.add_new(tempData);
+
+			});		
 
 
 
-fireBIdeas.child("23").once("value", function(snapshot){
-	tempOb = snapshot.val();
-
-	var sample1 = {
-		data: {
-			title: tempOb.ideaTitle,
-			votes: tempOb.voteCount.length - 1,
-			interest: tempOb.interestList.length
-		}
-
-	};
-
-	userIdeasView.add_new(sample1);
-
-});
-
-fireBIdeas.child("25").once("value", function(snapshot){
-	tempOb = snapshot.val();
-
-	var sample2 ={
-		data: {
-			title: tempOb.ideaTitle,
-			votes: tempOb.voteCount.length - 1,
-			interest: tempOb.interestList.length
-		}
-
-	};
-
-	userIdeasView.add_new(sample2);
-
-});
-
-fireBIdeas.child("27").once("value", function(snapshot){
-	tempOb = snapshot.val();
-
-	var sample2 = {
-		data: {
-			title: tempOb.ideaTitle,
-			votes: tempOb.voteCount.length - 1,
-			interest: tempOb.interestList.length
-		}
-
-	};
-
-	userIdeasView.add_new(sample2);
-
+		});
+	}
 });
 
 
 
+//Functional Idea Profile Display Hardcoded________________
 
 
+// fireBIdeas.child("25").once("value", function(snapshot){
+// 	tempOb = snapshot.val();
+
+// 	var sample2 ={
+// 		data: {
+// 			title: tempOb.ideaTitle,
+// 			votes: tempOb.voteCount.length - 1,
+// 			interest: tempOb.interestList.length
+// 		}
+
+// 	};
+
+// 	userIdeasView.add_new(sample2);
+
+// });
 
 
 
