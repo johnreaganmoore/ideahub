@@ -1,5 +1,4 @@
 
-
 var userIdeaTemplateHtml = $('.templates .user-idea-template').html();
 var userIdeaTemplate = _.template(userIdeaTemplateHtml);
 
@@ -34,6 +33,10 @@ var ShowUserIdeasView = Backbone.View.extend({
 		this.userIdeaViews = [];
 	},
 
+
+
+
+
 	add_new: function(obj){
 		var newUserIdeaView = new UserIdeaView(obj);
 
@@ -57,25 +60,68 @@ var userIdeasView = new ShowUserIdeasView({
 
 //______________________Sample Data________________________________
 
-var sample = {
-	data: {
-		title: "Test Title",
-		votes: 4,
-		interest:7
-	}
-};
 
-var sample1 = {
-	data: {
-		title: "Another Title",
-		votes: 6,
-		interest:3
-	}
-};
+fireBUsers.child("2129914").child("authorList").once("value", function(snapshot){
+	authorList = snapshot.val();
 
-userIdeasView.add_new(sample);
+	console.log(authorList);
+})
 
-userIdeasView.add_new(sample1);
+
+
+fireBIdeas.child("23").once("value", function(snapshot){
+	tempOb = snapshot.val();
+
+	var sample1 = {
+		data: {
+			title: tempOb.ideaTitle,
+			votes: tempOb.voteCount.length - 1,
+			interest: tempOb.interestList.length
+		}
+
+	};
+
+	userIdeasView.add_new(sample1);
+
+});
+
+fireBIdeas.child("25").once("value", function(snapshot){
+	tempOb = snapshot.val();
+
+	var sample2 ={
+		data: {
+			title: tempOb.ideaTitle,
+			votes: tempOb.voteCount.length - 1,
+			interest: tempOb.interestList.length
+		}
+
+	};
+
+	userIdeasView.add_new(sample2);
+
+});
+
+fireBIdeas.child("27").once("value", function(snapshot){
+	tempOb = snapshot.val();
+
+	var sample2 = {
+		data: {
+			title: tempOb.ideaTitle,
+			votes: tempOb.voteCount.length - 1,
+			interest: tempOb.interestList.length
+		}
+
+	};
+
+	userIdeasView.add_new(sample2);
+
+});
+
+
+
+
+
+
 
 
 //_________________User Interested Idea View created______________________
