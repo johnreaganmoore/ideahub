@@ -179,7 +179,21 @@ var ideaBackBone = {
 	})
 }
 
-//_______________________Backbone - ProfilePage_____________________________//
+//_______________________Backbone - IdeaPages_____________________________//
+
+var ideaInit = function(){
+	var currentIdeaId = getURLParameter("ideaId");
+
+	fireBIdeas.child(currentIdeaId).once("value", function(snapshot){
+		var ideaObj = snapshot.val()
+			, ideaHtml = $(".singleIdeaTemplate").html()
+			, ideaTemplate = _.template(ideaHtml)
+			, newHtml = ideaTemplate(ideaObj)
+		;
+		$(".singleIdeaFeed").html(newHtml);
+		console.log(ideaObj);
+	});
+};
 
 //_______________________Event Listeners______________________//
 
@@ -200,6 +214,11 @@ $(document).on("click", ".showMoreDesc", function(e){
 		$(this).text("Show More")
 	}
 	$(this).closest(".columns").find(".ideaDesc").toggleClass("fullDesc");
+});
+
+$(document).on("click", ".myProfile", function(e){
+	e.preventDefault();
+	console.log("hi");
 });
 
 //_________________________Twitter____________________________//
