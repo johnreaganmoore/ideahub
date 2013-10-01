@@ -194,6 +194,23 @@ var ideaInit = function(){
 	});
 };
 
+//_______________________Form Functionality____________________///
+
+var formInit = function(){
+	$(document).on("click", ".ideaSubmit", function(e){
+		e.preventDefault();
+		addNewIdea();
+	});
+
+	tinymce.init({
+		selector: "textarea",
+		plugins: [""],
+		menubar: false,
+		statusbar: false,
+		toolbar: "bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent" 
+	});
+};
+
 //_______________________Event Listeners______________________//
 
 $(document).on('click', ".login", function(e) {
