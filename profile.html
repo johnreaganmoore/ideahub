@@ -19,7 +19,7 @@
         <div class="subNavLinks">
           <h5><a href="#" class="logOut">Log out</a></h5>
           <h5><a href="form.html">Add Idea!</a></h5>
-          <h5><a href="profile.html">Profile</a></h5>
+          <h5><a href="" class="myProfile">My Profile</a></h5>
         </div>
       </div>
     </div>
@@ -63,9 +63,9 @@
     <script class="user-idea-template" type="text/template">
       <div class="user-idea-template">
         <div class="row">
-          <div class="large-6 columns"><h3><a><%= ideaTitle %></a></h3></div>
-          <div class="large-3 columns"><h3><a>Votes: <%= votes %></a></h3></div>
-          <div class="large-3 columns"><h3><a>Interested: <%= interest %></a></h3></div> 
+          <div class="large-6 columns"><h3><a href="idea.html?ideaId=<%= ideaId %>"><%= ideaTitle %></a></h3></div>
+          <div class="large-3 columns"><h3>Votes: <%= votes %></h3></div>
+          <div class="large-3 columns"><h3>Interested: <%= interest %></h3></div> 
         </div>
         <hr />
       </div>
@@ -74,9 +74,9 @@
     <script class="user-interests-template" type="text/template">
       <div class="user-interests-template">
         <div class="row">
-          <div class="large-6 columns"><h3><a><%= ideaTitle %></a></h3></div>
-          <div class="large-3 columns"><h3><a>Votes: <%= votes %></a></h3></div>
-          <div class="large-3 columns"><h3><a>Still Seeking: <%= numWanted %></a></h3></div> 
+          <div class="large-6 columns"><h3><a href="idea.html?ideaId=<%= ideaId %>"><%= ideaTitle %></a></h3></div>
+          <div class="large-3 columns"><h3>Votes: <%= votes %></h3></div>
+          <div class="large-3 columns"><h3>Still Seeking: <%= numWanted %></h3></div> 
         </div>
         <hr />
       </div>

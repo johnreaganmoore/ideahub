@@ -13,9 +13,10 @@ var UserIdeaView = Backbone.View.extend({
 
 	render: function() {
 		var userIdeaHtml = userIdeaTemplate({
-			ideaTitle: this.data.title,
-			votes: this.data.votes,
-			interest: this.data.interest
+			ideaTitle: this.data.ideaTitle,
+			votes: this.data.voteCount.length,
+			interest: this.data.interestList.length,
+			ideaId: this.data.ideaId
 		});
 		$(this.el).html(userIdeaHtml);
 		return this;
@@ -74,20 +75,11 @@ fireBUsers.child(userProfileId).child("authorList").once("value", function(snaps
 
 			fireBIdeas.child(ideaId).once("value", function(snapshot){
 				var ideaOb = snapshot.val();
-
-// Take out the data you want from the snapshot of the idea object.
-
-				var tempData = {
-					data: {
-						title: ideaOb.ideaTitle,
-						votes: ideaOb.voteCount.length - 1,
-						interest: ideaOb.interestList.length
-					}
-				};
+				console.log(ideaOb);
 
 // Pass that data into a Backbone view.
 
-				userIdeasView.add_new(tempData);
+				userIdeasView.add_new({data: ideaOb});
 
 			});	
 		});
@@ -109,8 +101,9 @@ var UserInterestView = Backbone.View.extend({
 
 	render: function() {
 		var userInterestHtml = userInterestTemplate({
-			ideaTitle: this.data.title,
-			votes: this.data.votes,
+			ideaTitle: this.data.ideaTitle,
+			votes: this.data.voteCount.length,
+			ideaId: this.data.ideaId,
 			numWanted: this.data.numWanted
 		});
 		$(this.el).html(userInterestHtml);
@@ -169,17 +162,8 @@ fireBUsers.child(userProfileId).child("iList").once("value", function(snapshot){
 			fireBIdeas.child(ideaId).once("value", function(snapshot){
 				var ideaOb = snapshot.val();
 
-
-// Take out the data you want from the snapshot of the idea object.
-				var tempData = {
-					data: {
-						title: ideaOb.ideaTitle,
-						votes: ideaOb.voteCount.length - 1,
-						numWanted: ideaOb.numWanted
-					}
-				};
 // Pass that data into a Backbone view.
-				userInterestsView.add_new(tempData);
+				userInterestsView.add_new({data: ideaOb});
 
 			});	
 		});

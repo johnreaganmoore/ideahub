@@ -66,7 +66,7 @@ var ideaBackBone = {
 
 		initialize: function(options) {
 			this.data = options.data;
-			this.data.voteText = "+";
+			this.data.voteText = "vote up!";
 			this.data.interestText = "I'm interested";
 		},
 
@@ -116,7 +116,7 @@ var ideaBackBone = {
 
 		updateVote: function(e) {
 			e.preventDefault();
-			if(this.data.voteText === "+"){ //Triggers single votes!
+			if(this.data.voteText === "vote up!"){ //Triggers single votes!
 				this.data.voteText = "voted!";
 				this.data.voteCount ++;
 				var self = this.data;
@@ -191,7 +191,6 @@ var ideaInit = function(){
 			, newHtml = ideaTemplate(ideaObj)
 		;
 		$(".singleIdeaFeed").html(newHtml);
-		console.log(ideaObj);
 	});
 };
 
@@ -339,8 +338,6 @@ switch(pageLocation){
 		break;
 	case "idea.html":
 		ideaInit();
-	case "profile.html":
-		//profileInit();
 	default:
 		break;
 }
