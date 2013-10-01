@@ -197,6 +197,7 @@ var ideaInit = function(){
 //_______________________Event Listeners______________________//
 
 $(document).on('click', ".login", function(e) {
+	e.preventDefault();
 	auth.login('github');
 });
 
