@@ -19,7 +19,7 @@
         <div class="subNavLinks">
           <h5><a href="#" class="logOut">Log out</a></h5>
           <h5><a href="form.html">Add Idea!</a></h5>
-          <h5><a href="#">Profile</a></h5>
+          <h5><a href="profile.html">Profile</a></h5>
         </div>
       </div>
     </div>
@@ -38,7 +38,7 @@
     <script class="ideaTemplate" type="text/template">
           <div class="row ideaContainer">
             <div class="large-2 columns small-3 avatar"><img src="<%= avatar %>" /><br>
-              <p class="author"><%=author%></p>
+              <p class="author"><a href="profile.html?authorId=<%= authorId %>"><%=author%></a></p>
             </div>
             <div class="large-8 columns small-7">
               <h3 class="ideaTitle"><a href="idea.html?ideaId=<%= ideaId %>"><%= ideaTitle %></a></h3> 

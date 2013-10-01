@@ -1,6 +1,7 @@
+
 var userIdeaTemplateHtml = $('.templates .user-idea-template').html();
 var userIdeaTemplate = _.template(userIdeaTemplateHtml);
-
+var userProfileId = getURLParameter("authorId");
 
 // Individual Idea View created______________________
 
@@ -52,25 +53,46 @@ var userIdeasView = new ShowUserIdeasView({
 	el: $('#user-ideas')
 });
 
-var sample = {
-	data: {
-		title: "Test Title",
-		votes: 4,
-		interest:7
+
+//______________________Retreive Firebase Data from authorList_______________________________
+
+
+// Take a snapshop of the list of ideaId's for the ideas the user authored.(Will be an array of Id's)
+
+fireBUsers.child(userProfileId).child("authorList").once("value", function(snapshot){
+	authorList = snapshot.val();
+
+// Iterate through the array of ideaIds and grab a snapshot of each ideaId in the authorList.
+
+	for(var i = 1; i < authorList.length; i++){
+
+		fireBUsers.child(userProfileId).child("authorList").child(i).once("value", function(snapshot){
+
+			var ideaId = snapshot.val();
+
+// And for each of those ideaIds, take a snapshot of the idea object.
+
+			fireBIdeas.child(ideaId).once("value", function(snapshot){
+				var ideaOb = snapshot.val();
+
+// Take out the data you want from the snapshot of the idea object.
+
+				var tempData = {
+					data: {
+						title: ideaOb.ideaTitle,
+						votes: ideaOb.voteCount.length - 1,
+						interest: ideaOb.interestList.length
+					}
+				};
+
+// Pass that data into a Backbone view.
+
+				userIdeasView.add_new(tempData);
+
+			});	
+		});
 	}
-};
-
-var sample1 = {
-	data: {
-		title: "Another Title",
-		votes: 6,
-		interest:3
-	}
-};
-
-userIdeasView.add_new(sample);
-
-userIdeasView.add_new(sample1);
+});
 
 
 //_________________User Interested Idea View created______________________
@@ -89,7 +111,7 @@ var UserInterestView = Backbone.View.extend({
 		var userInterestHtml = userInterestTemplate({
 			ideaTitle: this.data.title,
 			votes: this.data.votes,
-			response: this.data.response
+			numWanted: this.data.numWanted
 		});
 		$(this.el).html(userInterestHtml);
 		return this;
@@ -127,22 +149,41 @@ var userInterestsView = new ShowUserInterestsView({
 	el: $('#user-interests')
 });
 
-var sample = {
-	data: {
-		title: "Test Title",
-		votes: 4,
-		response:"Denied"
+
+//______________________Retreive Firebase Data from iList_______________________________
+
+
+// Take a snapshop of the list of ideaId's for the ideas the user is interested in.(Will be an array of Id's)
+fireBUsers.child(userProfileId).child("iList").once("value", function(snapshot){
+
+	interestList = snapshot.val();
+
+// Iterate through the array of ideaIds and grab a snapshot of each ideaId in the iList.
+	for(var i = 1; i < interestList.length; i++){
+
+		fireBUsers.child(userProfileId).child("iList").child(i).once("value", function(snapshot){
+
+			var ideaId = snapshot.val();
+
+// And for each of those ideaIds, take a snapshot of the idea object.
+			fireBIdeas.child(ideaId).once("value", function(snapshot){
+				var ideaOb = snapshot.val();
+
+
+// Take out the data you want from the snapshot of the idea object.
+				var tempData = {
+					data: {
+						title: ideaOb.ideaTitle,
+						votes: ideaOb.voteCount.length - 1,
+						numWanted: ideaOb.numWanted
+					}
+				};
+// Pass that data into a Backbone view.
+				userInterestsView.add_new(tempData);
+
+			});	
+		});
 	}
-};
+});
 
-var sample1 = {
-	data: {
-		title: "Another Title",
-		votes: 6,
-		response:"Accepted"
-	}
-};
 
-userInterestsView.add_new(sample);
-
-userInterestsView.add_new(sample1);

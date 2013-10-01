@@ -7,14 +7,20 @@
 </head>
 <body>
 	<!-- Header and Nav -->
-   <div class="navBar">
+  <div class="navBar">
     <div class="navContainer">
       <div class="topLevelNav">
-        <a href="#"><h1>IdeaHub</h1></a>
-        <a class="login"><h4><i class="icon-github"></i> Login</h4></a>
+        <h1><a href="user.html">IdeaHub</a></h1>
+        <i class="icon-cogs"></i>
+        <div class="hello"></div>
       </div>
       <div class="subLevelNav">
-        <h3>We haz idea!</h3>
+        <h3 class="subHeadLine">We haz idea!</h3>
+        <div class="subNavLinks">
+          <h5><a href="#" class="logOut">Log out</a></h5>
+          <h5><a href="form.html">Add Idea!</a></h5>
+          <h5><a href="profile.html">Profile</a></h5>
+        </div>
       </div>
     </div>
   </div>
@@ -57,9 +63,9 @@
     <script class="user-idea-template" type="text/template">
       <div class="user-idea-template">
         <div class="row">
-          <div class="large-8 columns"><h3><a><%= ideaTitle %></a></h3></div>
-          <div class="large-2 columns"><h3><a>Votes:<%= votes %></a></h3></div>
-          <div class="large-2 columns"><h3><a><%= interest %></a></h3></div> 
+          <div class="large-6 columns"><h3><a><%= ideaTitle %></a></h3></div>
+          <div class="large-3 columns"><h3><a>Votes: <%= votes %></a></h3></div>
+          <div class="large-3 columns"><h3><a>Interested: <%= interest %></a></h3></div> 
         </div>
         <hr />
       </div>
@@ -68,9 +74,9 @@
     <script class="user-interests-template" type="text/template">
       <div class="user-interests-template">
         <div class="row">
-          <div class="large-8 columns"><h3><a><%= ideaTitle %></a></h3></div>
-          <div class="large-2 columns"><h3><a>Votes:<%= votes %></a></h3></div>
-          <div class="large-2 columns"><h3><a><%= response %></a></h3></div> 
+          <div class="large-6 columns"><h3><a><%= ideaTitle %></a></h3></div>
+          <div class="large-3 columns"><h3><a>Votes: <%= votes %></a></h3></div>
+          <div class="large-3 columns"><h3><a>Still Seeking: <%= numWanted %></a></h3></div> 
         </div>
         <hr />
       </div>
@@ -110,6 +116,7 @@
 
 
 <!-- <script src="js/script.js" type="text/javascript"></script> -->
+<script src="js/script2.js" type="text/javascript"></script>
 <script src="js/profile.js" type="text/javascript"></script>
 </body>
 </html>

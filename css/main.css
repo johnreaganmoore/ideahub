@@ -247,6 +247,12 @@ ul.inline-list{
 	margin: 50px 20px;
 }
 
+/****************** Profile ***************************/
+
+.your-ideas {
+	margin-top: 50px;
+}
+
 /*****************Reflexive settings ******************/
 
 @media only screen and (max-width: 980px) {

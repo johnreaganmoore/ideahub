@@ -76,6 +76,7 @@ var ideaBackBone = {
 			var assignTemplate = function(){
 				var ideaHtml = ideasView.template({
 					author: self.data.author,
+					authorId: self.data.authorId,
 					avatar: self.data.avatar,
 					ideaTitle: self.data.ideaTitle,
 					ideaDesc: self.data.ideaDesc,
@@ -178,144 +179,7 @@ var ideaBackBone = {
 	})
 }
 
-
-//_______________________Form Initialize____________________///
-
-var formInit = function(){
-	$(document).on("click", ".ideaSubmit", function(e){
-		e.preventDefault();
-		addNewIdea();
-	});
-
-	tinymce.init({
-		selector: "textarea",
-		plugins: [""],
-		menubar: false,
-		statusbar: false,
-		toolbar: "bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent" 
-	});
-};
-
-//______________________Profile Page Initialize_________________//
-
-var profileInit = function(){
-	userIdeasView = new ShowUserIdeasView({
-		el: $('#user-ideas')
-	});
-
-	userInterestsView = new ShowUserInterestsView({
-		el: $('#user-interests')
-	});
-};
-
-//Profile backbone - > creates views of ideas that currentUser has published.
-
-var profileBackBone = {
-	UserIdeaView: Backbone.View.extend({
-		initialize: function(options) {
-			this.data = options.data;
-			this.userIdeaTemplateHtml: $('.templates .user-idea-template').html();
-			this.userIdeaTemplate: _.template(userIdeaTemplateHtml);
-		},
-
-		render: function() {
-			var userIdeaHtml = this.userIdeaTemplate({
-				ideaTitle: this.data.title,
-				votes: this.data.votes,
-				interest: this.data.interest
-			});
-			$(this.el).html(userIdeaHtml);
-			return this;
-		}
-
-	}),
-
-	ShowUserIdeasView: Backbone.View.extend({
-
-		initialize: function(options) {
-			this.userIdeaViews = [];
-		},
-
-		add_new: function(obj){
-			var newUserIdeaView = new UserIdeaView(obj);
-
-			var newUserIdeaHtml = newUserIdeaView.render().el;
-			this.userIdeaViews.push(newUserIdeaView);
-			$(this.el).append(newUserIdeaHtml);
-		},
-
-		render: function(){
-			for(var i = 0; i < this.userIdeaViews.length; i++){
-				var newUserIdeaHtml = this.userIdeaViews[i].render().el;
-				$(this.el).append(newUserIdeaHtml);
-			}
-		}
-	})
-};
-
-// Interest views: creates views of ideas user has expressed interest in.
-
-var userInterestBackBone = {
-	UserInterestView: Backbone.View.extend({
-
-		initialize: function(options) {
-			this.data = options.data;
-			this.userInterestTemplateHtml = $('.templates .user-interests-template').html();
-			this.userInterestTemplate = _.template(userInterestTemplateHtml);
-		},
-
-		render: function() {
-			var userInterestHtml = userInterestTemplate({
-				ideaTitle: this.data.title,
-				votes: this.data.votes,
-				response: this.data.response
-			});
-			$(this.el).html(userInterestHtml);
-			return this;
-		}
-
-	}),
-
-	ShowUserInterestsView: Backbone.View.extend({
-
-		initialize: function(options) {
-			this.userInterestViews = [];
-		},
-
-		add_new: function(obj){
-			var newUserInterestView = new UserInterestView(obj);
-
-			var newUserInterestHtml = newUserInterestView.render().el;
-			this.userInterestViews.push(newUserInterestView);
-			$(this.el).append(newUserInterestHtml);
-		},
-
-		render: function(){
-			for(var i = 0; i < this.userInterestViews.length; i++){
-				var newUserInterestHtml = this.userInterestViews[i].render().el;
-				$(this.el).append(newUserInterestHtml);
-			}
-		}
-	})
-}
-
-
-
-//______________________Idea Page Initialize__________________//
-
-var ideaInit = function(){
-	var currentIdeaId = getURLParameter("ideaId");
-
-	fireBIdeas.child(currentIdeaId).once("value", function(snapshot){
-		var ideaObj = snapshot.val()
-			, ideaHtml = $(".singleIdeaTemplate").html()
-			, ideaTemplate = _.template(ideaHtml)
-			, newHtml = ideaTemplate(ideaObj)
-		;
-		$(".singleIdeaFeed").html(newHtml);
-		console.log(ideaObj);
-	});
-};
+//_______________________Backbone - ProfilePage_____________________________//
 
 //_______________________Event Listeners______________________//
 
@@ -441,7 +305,7 @@ var getURLParameter = function(name) {
     );
 }
 
-//authenticate(); // disable when running Jasmine spec runner.
+authenticate(); // disable when running Jasmine spec runner.
 
 switch(pageLocation){
 	case "index.html":
