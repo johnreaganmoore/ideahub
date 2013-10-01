@@ -136,14 +136,14 @@ var ideaBackBone = {
 
 		updateInterest: function(e) {
 			e.preventDefault();
-			if(this.data.interested === "I'm interested"){
-				this.data.interested = "All in!";
+			if(this.data.interestText=== "I'm interested"){
+				this.data.interestText= "All in!";
 
 				var self = this.data;
 				fireBIdeas.child(self.ideaId.toString()).once("value", function(snapshot) {
 					var ideaOb = snapshot.val();
 
-					ideaOb.interest.push(auth.user);
+					ideaOb.interestList.push(auth.user.id);
 
 					fireBIdeas.child(self.ideaId.toString()).set(ideaOb);
 				});
