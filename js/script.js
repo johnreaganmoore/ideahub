@@ -1,38 +1,37 @@
-var myDataRef = new Firebase("https://idea-hub.firebaseio.com/");
-var fireBIdeas = myDataRef.child("ideas");
-var fireBIdeaCounter = myDataRef.child('ideasCounter');
-var ideasCounter;
-var onIndex = onIndex || false;
+// var myDataRef = new Firebase("https://idea-hub.firebaseio.com/");
+// var fireBIdeas = myDataRef.child("ideas");
+// var fireBIdeaCounter = myDataRef.child('ideasCounter');
+// var ideasCounter;
 
-fireBIdeaCounter.once("value", function(snapshot){
-	ideasCounter = snapshot.val();
-});
+// fireBIdeaCounter.once("value", function(snapshot){
+// 	ideasCounter = snapshot.val();
+// });
 
 var ideaTemplateHtml = $('.templates .idea-template').html();
 var ideaTemplate = _.template(ideaTemplateHtml);
 
-// _________________________Auth Code______________________________________//
+// // _________________________Auth Code______________________________________//
 
-var auth = new FirebaseSimpleLogin(myDataRef, function(error, user) {
-	var urlArray = window.location.pathname.split( '/' );
+// var auth = new FirebaseSimpleLogin(myDataRef, function(error, user) {
+// 	var urlArray = window.location.pathname.split( '/' );
 
-	if (error) {
-	// an error occurred while attempting login
-		console.log(error);
-	} else if (user) {
-	// user authenticated with Firebase
-		if(urlArray.indexOf("index.html") > -1 || onIndex){
-			window.location.assign("user.html");
-		}
+// 	if (error) {
+// 	// an error occurred while attempting login
+// 		console.log(error);
+// 	} else if (user) {
+// 	// user authenticated with Firebase
+// 		// if(urlArray.indexOf("index.html") > -1){
+// 		// 	window.location.assign("user.html");
+// 		// }
 
-		this.user = user
-		$(".hello").text("Welcome, " + user.username)
-	} else {
-		if(urlArray.indexOf("index.html" ) === -1){
-			window.location.assign("index.html");
-		}
-	}
-});
+// 		this.user = user
+// 		$(".hello").text("Welcome, " + user.username)
+// 	} else {
+// 		// if(urlArray.indexOf("index.html" ) === -1){
+// 		// 	window.location.assign("index.html");
+// 		// }
+// 	}
+// });
 
 
 
@@ -89,8 +88,8 @@ var IdeaView = Backbone.View.extend({
 				ideaOb.votes.push(auth.user.id);
 				priority --;
 
-				fireBIdeas.child(self.ideaId.toString()).set(ideaOb);
 				fireBIdeas.child(self.ideaId.toString()).setPriority(priority);
+				fireBIdeas.child(self.ideaId.toString()).set(ideaOb);
 			});
 		ideasView.render();
 		}
@@ -153,7 +152,7 @@ var ideasView = new ShowIdeasView({
 // 	var fireBaseObj = snapshot.val();
 
 // 	if(typeof fireBaseObj === "object"){
-// 		updatePageInfo(fireBaseObj);
+// 		updatePageInfo(fireBaseObj.ideaTitle, fireBaseObj.ideaDesc, fireBaseObj.userName, fireBaseObj.avatar, fireBaseObj.votes, fireBaseObj.voted, fireBaseObj.ideaId, fireBaseObj.interest, fireBaseObj.interested);
 // 	}
 // });
 
@@ -164,20 +163,20 @@ var updatePageInfo = function(obj){
 
 //_______________________Event Listeners______________________//
 
-$(document).on('click', ".login", function(e) {
-	auth.login('github');
-});
+// $(document).on('click', ".login", function(e) {
+// 	auth.login('github');
+// });
 
-$(document).on('click', ".logOut", function(e) {
-	auth.logout();
-});
+// $(document).on('click', ".logOut", function(e) {
+// 	auth.logout();
+// });
 
-$(document).on("click", ".showDesc", function(e){
-	e.preventDefault();
-	$(this).parent().parent().prev().toggleClass("fullDesc");
-});
+// $(document).on("click", ".showDesc", function(e){
+// 	e.preventDefault();
+// 	$(this).parent().parent().prev().toggleClass("fullDesc");
+// });
 
 //_________________________Sharing_____________________________//
-
-!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');
+// 
+// !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');
 

@@ -208,6 +208,32 @@ ul.inline-list{
 	margin-top: 10px;
 }
 
+.avatar{
+	width:100px;
+}
+
+/***********************Profile Page and Profile Items*******************************/
+
+.edit-title {
+	font-size: .25em;
+	vertical-align: bottom;
+}
+
+.interested-user {
+	text-align: center;
+}
+
+.interested-user img {
+	margin-bottom: 20px;
+}
+
+.intersted-user p {
+	text-align: center;
+}
+
+.interested-avatar {
+	padding: 20 70 0 70;
+}
 .formLastRow:first-child{
 	padding-left: 0;
 }
