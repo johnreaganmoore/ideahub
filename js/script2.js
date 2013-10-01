@@ -218,7 +218,8 @@ $(document).on("click", ".showMoreDesc", function(e){
 
 $(document).on("click", ".myProfile", function(e){
 	e.preventDefault();
-	console.log("hi");
+
+	window.location.assign("profile.html?authorId=" + auth.user.id);
 });
 
 //_________________________Twitter____________________________//
