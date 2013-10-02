@@ -66,13 +66,13 @@ var ideaBackBone = {
 
 		initialize: function(options) {
 			this.data = options.data;
+			this.voteCount = options.data.voteCount.length
 			this.data.voteText = "vote up!";
 			this.data.interestText = "I'm interested";
 		},
 
 		render: function() {
 			var self = this;
-
 			var assignTemplate = function(){
 				var ideaHtml = ideasView.template({
 					author: self.data.author,
@@ -80,7 +80,7 @@ var ideaBackBone = {
 					avatar: self.data.avatar,
 					ideaTitle: self.data.ideaTitle,
 					ideaDesc: self.data.ideaDesc,
-					voteCount: self.data.voteCount.length, //we minus one since firebase cannot accept empty arrays
+					voteCount: self.voteCount,
 					voteText: self.data.voteText,
 					ideaId: self.data.ideaId,
 					interestList: self.data.interest,
@@ -105,7 +105,6 @@ var ideaBackBone = {
 			} else {
 				assignTemplate();
 			}
-			
 			return self;
 		},
 
@@ -118,17 +117,26 @@ var ideaBackBone = {
 			e.preventDefault();
 			if(this.data.voteText === "vote up!"){ //Triggers single votes!
 				this.data.voteText = "voted!";
-				this.data.voteCount ++;
+				this.voteCount ++;
 				var self = this.data;
 				fireBIdeas.child(self.ideaId.toString()).once("value", function(snapshot){
 					var ideaOb = snapshot.val();
 					var priority = snapshot.getPriority();
 					
 					ideaOb.voteCount.push(auth.user.id);
+					console.log(priority);
 					priority --;
+					console.log(priority);
 
 					fireBIdeas.child(self.ideaId.toString()).set(ideaOb);
 					fireBIdeas.child(self.ideaId.toString()).setPriority(priority);
+				});
+
+				fireBUsers.child(auth.user.id.toString()).once("value", function(snapshot){
+					var userTemp = snapshot.val();
+
+					userTemp.voteList.push(self.ideaId);
+					fireBUsers.child(auth.user.id).set(userTemp);
 				});
 			ideasView.render();
 			}
@@ -136,18 +144,28 @@ var ideaBackBone = {
 
 		updateInterest: function(e) {
 			e.preventDefault();
-			if(this.data.interestText=== "I'm interested"){
-				this.data.interestText= "All in!";
+			var self = this;
+			if(self.data.interestText === "I'm interested"){
+				self.data.interestText = "All in!";
 
-				var self = this.data;
-				fireBIdeas.child(self.ideaId.toString()).once("value", function(snapshot) {
+				fireBIdeas.child(self.data.ideaId.toString()).once("value", function(snapshot) {
 					var ideaOb = snapshot.val();
+					var priority = snapshot.getPriority();
 
 					ideaOb.interestList.push(auth.user.id);
 
-					fireBIdeas.child(self.ideaId.toString()).set(ideaOb);
+					fireBIdeas.child(self.data.ideaId.toString()).set(ideaOb);
+					fireBIdeas.child(self.data.ideaId.toString()).setPriority(priority);
 				});
-			ideasView.render();
+
+				fireBUsers.child(auth.user.id).once("value", function(snapshot){
+					var userTemp = snapshot.val();
+
+					userTemp.iList.push(self.data.ideaId);
+
+					fireBUsers.child(auth.user.id).set(userTemp);
+				});
+			ideasView.render();	
 			}
 		}
 	}),
@@ -332,6 +350,7 @@ var recordNewUser = function(){
 				voteList: voteList,
 				iList: iList
 			});
+			initIdeas();
 		}
 	});
 };
